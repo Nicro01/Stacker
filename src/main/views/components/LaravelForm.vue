@@ -150,6 +150,12 @@ export default {
           image:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/2367px-Vue.js_Logo_2.svg.png",
         },
+        {
+          name: "LIR",
+          description: "Vue, Inertia, Laravel, Tailwind",
+          imageClass: "w-16",
+          image: "https://laravext.dev/images/logo/laravext.png",
+        },
       ],
       auth: false,
     };
