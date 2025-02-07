@@ -5,6 +5,7 @@
         @click="selectStack(0)"
         :class="{
           'border-2 border-green-400 scale-105': selectedStack === 0,
+          'border-2 border-white': selectedStack !== 0,
         }"
         class="card trasition-all cursor-pointer hover:scale-105 duration-200 ease-in-out p-6 rounded-lg flex flex-col gap-2"
       >
@@ -32,6 +33,7 @@
         @click="selectStack(index + 1)"
         :class="{
           'border-2 border-green-400 scale-105': selectedStack === index + 1,
+          'border-2 border-white': selectedStack !== index + 1,
         }"
         class="card p-6 rounded-lg hover:scale-105 flex flex-col gap-2 cursor-pointer trasition-all duration-200 ease-in-out"
       >
