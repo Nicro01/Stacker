@@ -59,6 +59,7 @@ export default class LaravelController {
           )
             .then(() => {
               let stackCommand = "";
+              let DATA_PATH = "./src/main/assets/datas/laravel/react_stack/";
 
               switch (stack) {
                 case 0:
@@ -75,93 +76,72 @@ export default class LaravelController {
                   stackCommand = `cd "${fullPath}" && composer require laravel/jetstream && php artisan jetstream:install inertia`;
                   break;
                 case 3:
-                  break;
-              }
+                  // Install Inertia and React dependencies
+                  exec(
+                    `cd "${fullPath}" && composer require inertiajs/inertia-laravel && npm install @inertiajs/react react-dom react`
+                  );
 
-              if (stack == 3) {
-                const DATA_PATH =
-                  "./src/main/assets/datas/laravel/react_stack/";
-                // Install Inertia and React dependencies
-                exec(
-                  `cd "${fullPath}" && composer require inertiajs/inertia-laravel && npm install @inertiajs/react react-dom react`
-                );
+                  // Remove the default app.blade.php
+                  fs.unlinkSync(
+                    path.join(fullPath, "resources/views/welcome.blade.php")
+                  );
 
-                // Remove the default app.blade.php
-                fs.unlinkSync(
-                  path.join(fullPath, "resources/views/welcome.blade.php")
-                );
+                  // Copy a new app.blade.php for Inertia
+                  fs.copyFileSync(
+                    `${DATA_PATH}app.blade.php`,
+                    path.join(fullPath, "resources/views/app.blade.php")
+                  );
+                  console.log("a");
 
-                // Copy a new app.blade.php for Inertia
-                fs.copyFileSync(
-                  `${DATA_PATH}app.blade.php`,
-                  path.join(fullPath, "resources/views/app.blade.php")
-                );
-                console.log("a");
+                  fs.unlinkSync(path.join(fullPath, "resources/js/app.js"));
 
-                fs.unlinkSync(path.join(fullPath, "resources/js/app.js"));
+                  fs.mkdirSync(path.join(fullPath, "app/Http/Middleware"));
 
-                fs.mkdirSync(path.join(fullPath, "app/Http/Middleware"));
+                  fs.copyFileSync(
+                    `${DATA_PATH}HandleInertiaRequests.php`,
+                    path.join(
+                      fullPath,
+                      "app/Http/Middleware/HandleInertiaRequests.php"
+                    )
+                  );
 
-                fs.copyFileSync(
-                  `${DATA_PATH}HandleInertiaRequests.php`,
-                  path.join(
-                    fullPath,
-                    "app/Http/Middleware/HandleInertiaRequests.php"
-                  )
-                );
+                  // Copy a new bootstrap/app.php
+                  fs.copyFileSync(
+                    `${DATA_PATH}app.php`,
+                    path.join(fullPath, "bootstrap/app.php")
+                  );
 
-                // Copy a new bootstrap/app.php
-                fs.copyFileSync(
-                  `${DATA_PATH}app.php`,
-                  path.join(fullPath, "bootstrap/app.php")
-                );
+                  // Update resources/js/app.jsx
+                  fs.copyFileSync(
+                    `${DATA_PATH}app.jsx`,
+                    path.join(fullPath, "resources/js/app.jsx")
+                  );
 
-                // Update resources/js/app.jsx
-                fs.copyFileSync(
-                  `${DATA_PATH}app.jsx`,
-                  path.join(fullPath, "resources/js/app.jsx")
-                );
+                  fs.mkdirSync(path.join(fullPath, "resources/js/Pages"));
 
-                fs.mkdirSync(path.join(fullPath, "resources/js/Pages"));
+                  fs.copyFileSync(
+                    `${DATA_PATH}Home.jsx`,
+                    path.join(fullPath, "resources/js/Pages/Home.jsx")
+                  );
 
-                fs.copyFileSync(
-                  `${DATA_PATH}Home.jsx`,
-                  path.join(fullPath, "resources/js/Pages/Home.jsx")
-                );
+                  exec(
+                    `cd "${fullPath}" && php artisan make:controller HomeController`
+                  );
 
-                exec(
-                  `cd "${fullPath}" && php artisan make:controller HomeController`
-                );
+                  fs.copyFileSync(
+                    `${DATA_PATH}HomeController.php`,
+                    path.join(
+                      fullPath,
+                      "app/Http/Controllers/HomeController.php"
+                    )
+                  );
 
-                fs.copyFileSync(
-                  `${DATA_PATH}HomeController.php`,
-                  path.join(fullPath, "app/Http/Controllers/HomeController.php")
-                );
+                  fs.copyFileSync(
+                    `${DATA_PATH}web.php`,
+                    path.join(fullPath, "routes/web.php")
+                  );
 
-                fs.copyFileSync(
-                  `${DATA_PATH}web.php`,
-                  path.join(fullPath, "routes/web.php")
-                );
-
-                // Install remaining dependencies and build
-                exec(
-                  `cd "${fullPath}" && npm install`,
-                  (error, stdout, stderr) => {
-                    if (error) {
-                      event.sender.send(
-                        "laravel-creation-error",
-                        error.message
-                      );
-                      return;
-                    }
-                    return event.sender.send(
-                      "laravel-creation-success",
-                      stdout
-                    );
-                  }
-                );
-
-                return;
+                  return;
               }
 
               stackCommand += ` && npm install && npm run build && php artisan migrate`;
