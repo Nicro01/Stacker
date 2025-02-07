@@ -41,17 +41,6 @@ export default class LaravelController {
 
         let command = `composer create-project --prefer-dist laravel/laravel "${fullPath}"`;
 
-        switch (stack) {
-          case 1:
-            console.log(auth);
-            if (auth) {
-              `&& cd "${fullPath}" && composer require livewire/livewire laravel-frontend-presets/tall && php artisan ui tall --auth && npm install && npm run build`;
-            } else {
-              `&& cd "${fullPath}" && composer require livewire/livewire laravel-frontend-presets/tall && php artisan ui tall && npm install && npm run build`;
-            }
-            break;
-        }
-
         const child = exec(command, (error, stdout, stderr) => {
           if (error) {
             event.sender.send("laravel-creation-error", error.message);
@@ -69,15 +58,25 @@ export default class LaravelController {
             event
           )
             .then(() => {
-              let stackCommand = `cd "${fullPath}" && composer require livewire/livewire laravel-frontend-presets/tall`;
+              let stackCommand = "";
 
-              if (auth) {
-                stackCommand += ` && php artisan ui tall --auth`;
-              } else {
-                stackCommand += ` && php artisan ui tall`;
+              switch (stack) {
+                case 0:
+                  break;
+                case 1:
+                  stackCommand = `cd "${fullPath}" && composer require livewire/livewire laravel-frontend-presets/tall`;
+                  if (auth) {
+                    stackCommand += ` && php artisan ui tall --auth`;
+                  } else {
+                    stackCommand += ` && php artisan ui tall`;
+                  }
+                  break;
+                case 2:
+                  stackCommand = `cd "${fullPath}" && composer require laravel/jetstream && php artisan jetstream:install inertia`;
+                  break;
               }
 
-              stackCommand += ` && npm install && npm run build`;
+              stackCommand += ` && npm install && npm run build && php artisan migrate`;
 
               const stackChild = exec(stackCommand, (error, stdout, stderr) => {
                 if (error) {
