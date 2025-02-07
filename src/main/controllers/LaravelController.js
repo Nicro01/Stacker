@@ -27,14 +27,14 @@ export default class LaravelController {
           DB_DATABASE = "stacker",
           DB_USERNAME = "root",
           DB_PASSWORD = "",
-        }
+        },
       ) => {
         const fullPath = path.join(projectPath, projectName);
 
         if (fs.existsSync(fullPath)) {
           event.sender.send(
             "laravel-creation-error",
-            `The folder "${fullPath}" already exists. Please choose a different name or path.`
+            `The folder "${fullPath}" already exists. Please choose a different name or path.`,
           );
           return;
         }
@@ -55,7 +55,7 @@ export default class LaravelController {
             DB_DATABASE,
             DB_USERNAME,
             DB_PASSWORD,
-            event
+            event,
           )
             .then(() => {
               let stackCommand = "";
@@ -75,135 +75,67 @@ export default class LaravelController {
                   stackCommand = `cd "${fullPath}" && composer require laravel/jetstream && php artisan jetstream:install inertia`;
                   break;
                 case 3:
-                  stackCommand = `cd "${fullPath}" && composer require inertiajs/inertia-laravel && npm install @inertiajs/react react react-dom @vitejs/plugin-react`;
                   break;
               }
 
               if (stack == 3) {
+                const DATA_PATH = "../assets/datas/laravel/react_stack/";
                 // Install Inertia and React dependencies
                 exec(
-                  `cd "${fullPath}" && composer require inertiajs/inertia-laravel && php artisan inertia:middleware && npm install @inertiajs/react react-dom react`
+                  `cd "${fullPath}" && composer require inertiajs/inertia-laravel && php artisan inertia:middleware && npm install @inertiajs/react react-dom react`,
                 );
 
                 // Remove the default app.blade.php
                 fs.unlinkSync(
-                  path.join(fullPath, "resources/views/welcome.blade.php")
+                  path.join(fullPath, "resources/views/welcome.blade.php"),
                 );
 
-                // Create a new app.blade.php for Inertia
-                fs.writeFileSync(
+                // Copy a new app.blade.php for Inertia
+                fs.copyFile(
+                  `${DATA_PATH}app.blade.php`,
                   path.join(fullPath, "resources/views/app.blade.php"),
-                  `<!DOCTYPE html>
-     <html>
-        <head>
-          <meta charset="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-          @vite('resources/js/app.jsx')
-          @inertiaHead
-        </head>
-        <body>
-          @inertia
-        </body>
-     </html>`
                 );
+                console.log("a");
 
                 fs.unlinkSync(path.join(fullPath, "resources/js/app.js"));
 
-                // Update bootstrap/app.php
-                fs.writeFileSync(
+                // Copy a new bootstrap/app.php
+                fs.copyFile(
+                  `${DATA_PATH}app.php`,
                   path.join(fullPath, "bootstrap/app.php"),
-                  `<?php
-
-      use Illuminate\\Foundation\\Application;
-      use Illuminate\\Foundation\\Configuration\\Exceptions;
-      use Illuminate\\Foundation\\Configuration\\Middleware;
-      use App\\Http\\Middleware\\HandleInertiaRequests;
-
-      return Application::configure(basePath: dirname(__DIR__))
-          ->withRouting(
-              web: __DIR__ . '/../routes/web.php',
-              commands: __DIR__ . '/../routes/console.php',
-              health: '/up',
-          )
-          ->withMiddleware(function (Middleware $middleware) {
-              $middleware->web(append: [
-                  HandleInertiaRequests::class,
-              ]);
-          })
-          ->withExceptions(function (Exceptions $exceptions) {
-              //
-          })->create();
-      `
                 );
 
-                // Update resources/js/app.js
-                fs.writeFileSync(
-                  path.join(fullPath, "resources/js/app.jsx"),
-                  `import React from "react";
-import { createInertiaApp } from "@inertiajs/react";
-import { createRoot } from "react-dom/client";
+                // Remove the default app.js
+                fs.unlinkSync(path.join(fullPath, "resources/js/app.jsx"));
 
-createInertiaApp({
-    resolve: (name) => {
-        const pages = import.meta.glob("./Pages/**/*.jsx", { eager: true });
-        return pages[\`./Pages/\${name}.jsx\`];
-    },
-    setup({ el, App, props }) {
-        createRoot(el).render(<App {...props} />);
-    },
-});`
+                // Update resources/js/app.jsx
+                fs.copyFile(
+                  `${DATA_PATH}app.jsx`,
+                  path.join(fullPath, "resources/js/app.jsx"),
                 );
 
                 fs.mkdirSync(path.join(fullPath, "resources/js/Pages"));
 
-                fs.writeFileSync(
+                fs.copyFile(
+                  `${DATA_PATH}Home.jsx`,
                   path.join(fullPath, "resources/js/Pages/Home.jsx"),
-                  `import React from "react";
-
-export default function Home() {
-    return (
-        <div>
-            <h1>Welcome</h1>
-            <p>Hello, welcome to your first Inertia app!</p>
-        </div>
-    );
-}
-`
                 );
 
                 exec(
-                  `cd "${fullPath}" && php artisan make:controller HomeController) `
+                  `cd "${fullPath}" && php artisan make:controller HomeController) `,
                 );
 
-                fs.writeFileSync(
+                fs.copyFile(
+                  `${DATA_PATH}HomeController.php`,
                   path.join(
                     fullPath,
-                    "app/Http/Controllers/HomeController.php"
+                    "app/Http/Controllers/HomeController.php",
                   ),
-                  `<?php
-
-namespace App\\Http\\Controllers;
-
-use Illuminate\\Http\\Request;
-use Inertia\\Inertia;
-
-class HomeController extends Controller
-{
-    public function index()
-    {
-        return Inertia::render('Home');
-    }
-}`
                 );
 
-                fs.writeFileSync(
+                fs.copyFile(
+                  `${DATA_PATH}web.php`,
                   path.join(fullPath, "routes/web.php"),
-                  `<?php
-
-use Illuminate\\Support\\Facades\\Route;
-
-Route::get('/', [App\\Http\\Controllers\\HomeController::class, 'index'])->name('home');
-`
                 );
 
                 // Install remaining dependencies and build
@@ -213,13 +145,13 @@ Route::get('/', [App\\Http\\Controllers\\HomeController::class, 'index'])->name(
                     if (error) {
                       event.sender.send(
                         "laravel-creation-error",
-                        error.message
+                        error.message,
                       );
                       return;
                     }
                     event.sender.send("laravel-creation-success", stdout);
                     return;
-                  }
+                  },
                 );
               }
 
@@ -255,7 +187,7 @@ Route::get('/', [App\\Http\\Controllers\\HomeController::class, 'index'])->name(
         child.stderr.on("data", (data) => {
           event.sender.send("laravel-creation-error", data);
         });
-      }
+      },
     );
 
     function editEnvFile(
@@ -266,7 +198,7 @@ Route::get('/', [App\\Http\\Controllers\\HomeController::class, 'index'])->name(
       DB_DATABASE,
       DB_USERNAME,
       DB_PASSWORD,
-      event
+      event,
     ) {
       return new Promise((resolve, reject) => {
         const envPath = path.join(fullPath, ".env");
@@ -293,7 +225,7 @@ Route::get('/', [App\\Http\\Controllers\\HomeController::class, 'index'])->name(
 
             event.sender.send(
               "laravel-creation-log",
-              ".env file updated successfully."
+              ".env file updated successfully.",
             );
             resolve();
           });
