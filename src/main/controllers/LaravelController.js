@@ -27,14 +27,14 @@ export default class LaravelController {
           DB_DATABASE = "stacker",
           DB_USERNAME = "root",
           DB_PASSWORD = "",
-        },
+        }
       ) => {
         const fullPath = path.join(projectPath, projectName);
 
         if (fs.existsSync(fullPath)) {
           event.sender.send(
             "laravel-creation-error",
-            `The folder "${fullPath}" already exists. Please choose a different name or path.`,
+            `The folder "${fullPath}" already exists. Please choose a different name or path.`
           );
           return;
         }
@@ -55,7 +55,7 @@ export default class LaravelController {
             DB_DATABASE,
             DB_USERNAME,
             DB_PASSWORD,
-            event,
+            event
           )
             .then(() => {
               let stackCommand = "";
@@ -79,63 +79,68 @@ export default class LaravelController {
               }
 
               if (stack == 3) {
-                const DATA_PATH = "../assets/datas/laravel/react_stack/";
+                const DATA_PATH =
+                  "./src/main/assets/datas/laravel/react_stack/";
                 // Install Inertia and React dependencies
                 exec(
-                  `cd "${fullPath}" && composer require inertiajs/inertia-laravel && php artisan inertia:middleware && npm install @inertiajs/react react-dom react`,
+                  `cd "${fullPath}" && composer require inertiajs/inertia-laravel && npm install @inertiajs/react react-dom react`
                 );
 
                 // Remove the default app.blade.php
                 fs.unlinkSync(
-                  path.join(fullPath, "resources/views/welcome.blade.php"),
+                  path.join(fullPath, "resources/views/welcome.blade.php")
                 );
 
                 // Copy a new app.blade.php for Inertia
-                fs.copyFile(
+                fs.copyFileSync(
                   `${DATA_PATH}app.blade.php`,
-                  path.join(fullPath, "resources/views/app.blade.php"),
+                  path.join(fullPath, "resources/views/app.blade.php")
                 );
                 console.log("a");
 
                 fs.unlinkSync(path.join(fullPath, "resources/js/app.js"));
 
-                // Copy a new bootstrap/app.php
-                fs.copyFile(
-                  `${DATA_PATH}app.php`,
-                  path.join(fullPath, "bootstrap/app.php"),
+                fs.mkdirSync(path.join(fullPath, "app/Http/Middleware"));
+
+                fs.copyFileSync(
+                  `${DATA_PATH}HandleInertiaRequests.php`,
+                  path.join(
+                    fullPath,
+                    "app/Http/Middleware/HandleInertiaRequests.php"
+                  )
                 );
 
-                // Remove the default app.js
-                fs.unlinkSync(path.join(fullPath, "resources/js/app.jsx"));
+                // Copy a new bootstrap/app.php
+                fs.copyFileSync(
+                  `${DATA_PATH}app.php`,
+                  path.join(fullPath, "bootstrap/app.php")
+                );
 
                 // Update resources/js/app.jsx
-                fs.copyFile(
+                fs.copyFileSync(
                   `${DATA_PATH}app.jsx`,
-                  path.join(fullPath, "resources/js/app.jsx"),
+                  path.join(fullPath, "resources/js/app.jsx")
                 );
 
                 fs.mkdirSync(path.join(fullPath, "resources/js/Pages"));
 
-                fs.copyFile(
+                fs.copyFileSync(
                   `${DATA_PATH}Home.jsx`,
-                  path.join(fullPath, "resources/js/Pages/Home.jsx"),
+                  path.join(fullPath, "resources/js/Pages/Home.jsx")
                 );
 
                 exec(
-                  `cd "${fullPath}" && php artisan make:controller HomeController) `,
+                  `cd "${fullPath}" && php artisan make:controller HomeController`
                 );
 
-                fs.copyFile(
+                fs.copyFileSync(
                   `${DATA_PATH}HomeController.php`,
-                  path.join(
-                    fullPath,
-                    "app/Http/Controllers/HomeController.php",
-                  ),
+                  path.join(fullPath, "app/Http/Controllers/HomeController.php")
                 );
 
-                fs.copyFile(
+                fs.copyFileSync(
                   `${DATA_PATH}web.php`,
-                  path.join(fullPath, "routes/web.php"),
+                  path.join(fullPath, "routes/web.php")
                 );
 
                 // Install remaining dependencies and build
@@ -145,14 +150,18 @@ export default class LaravelController {
                     if (error) {
                       event.sender.send(
                         "laravel-creation-error",
-                        error.message,
+                        error.message
                       );
                       return;
                     }
-                    event.sender.send("laravel-creation-success", stdout);
-                    return;
-                  },
+                    return event.sender.send(
+                      "laravel-creation-success",
+                      stdout
+                    );
+                  }
                 );
+
+                return;
               }
 
               stackCommand += ` && npm install && npm run build && php artisan migrate`;
@@ -187,7 +196,7 @@ export default class LaravelController {
         child.stderr.on("data", (data) => {
           event.sender.send("laravel-creation-error", data);
         });
-      },
+      }
     );
 
     function editEnvFile(
@@ -198,7 +207,7 @@ export default class LaravelController {
       DB_DATABASE,
       DB_USERNAME,
       DB_PASSWORD,
-      event,
+      event
     ) {
       return new Promise((resolve, reject) => {
         const envPath = path.join(fullPath, ".env");
@@ -225,7 +234,7 @@ export default class LaravelController {
 
             event.sender.send(
               "laravel-creation-log",
-              ".env file updated successfully.",
+              ".env file updated successfully."
             );
             resolve();
           });
