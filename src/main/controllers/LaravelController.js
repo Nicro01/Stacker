@@ -63,7 +63,11 @@ export default class LaravelController {
 
               switch (stack) {
                 case 0:
-                  break;
+                  event.sender.send(
+                    "laravel-creation-success",
+                    ".env file updated successfully."
+                  );
+                  return;
                 case 1:
                   stackCommand = `cd "${fullPath}" && composer require livewire/livewire laravel-frontend-presets/tall`;
                   if (auth) {
@@ -144,7 +148,7 @@ export default class LaravelController {
                   return;
               }
 
-              stackCommand += ` && npm install && npm run build && php artisan migrate`;
+              stackCommand += `&& npm install && npm run build && php artisan migrate`;
 
               const stackChild = exec(stackCommand, (error, stdout, stderr) => {
                 if (error) {

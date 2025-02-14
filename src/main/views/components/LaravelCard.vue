@@ -6,7 +6,7 @@
       'pb-0': showLaravelForm,
     }"
   >
-    <div
+    <!-- <div
       class="absolute top-0 left-0 w-full h-[8px] bg-neutral-400 rounded-t-xl"
     >
       <div
@@ -14,7 +14,7 @@
         id="progress"
         :style="{ width: progress + '%' }"
       ></div>
-    </div>
+    </div> -->
 
     <div class="flex justify-center pt-6">
       <img
@@ -48,6 +48,7 @@
     </button>
 
     <LaravelForm
+      @terminal="this.$emit('terminal')"
       class="px-6"
       v-bind:class="{
         'h-[0px] overflow-y-hidden': !showLaravelForm,

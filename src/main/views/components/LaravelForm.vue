@@ -173,6 +173,8 @@ export default {
     handleSubmit() {
       console.log(this.projectPath, this.projectName);
 
+      this.$emit("terminal");
+
       window.electron.send("create-laravel-project", {
         projectPath: this.projectPath,
         projectName: this.projectName,

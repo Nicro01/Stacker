@@ -3,7 +3,7 @@
     <WindowControls @show-terminal="toggleLogs" />
     <div class="container mx-auto px-4 pb-4 pt-32">
       <div class="grid grid-cols-1 gap-6">
-        <LaravelCard :progress="laravelProgress" />
+        <LaravelCard :progress="laravelProgress" @terminal="toggleLogs" />
       </div>
 
       <pre
@@ -55,17 +55,17 @@ export default {
     window.electron.on("laravel-creation-error", (data) => {
       this.logs += `${data}\n`;
 
-      if (data.includes("project at")) {
-        this.laravelProgress = 10;
-      } else if (data.includes("Installing dependencies")) {
-        this.laravelProgress = 40;
-      } else if (data.includes("Locking")) {
-        this.laravelProgress = 60;
-      } else if (data.includes("Generating optimized autoload files")) {
-        this.laravelProgress = 90;
-      } else if (data.includes("php artisan key:generate")) {
-        this.laravelProgress = 100;
-      }
+      // if (data.includes("project at")) {
+      //   this.laravelProgress = 10;
+      // } else if (data.includes("Installing dependencies")) {
+      //   this.laravelProgress = 40;
+      // } else if (data.includes("Locking")) {
+      //   this.laravelProgress = 60;
+      // } else if (data.includes("Generating optimized autoload files")) {
+      //   this.laravelProgress = 90;
+      // } else if (data.includes("php artisan key:generate")) {
+      //   this.laravelProgress = 100;
+      // }
     });
 
     window.electron.on("laravel-creation-success", (data) => {
