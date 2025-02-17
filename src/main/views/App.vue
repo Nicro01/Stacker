@@ -9,7 +9,7 @@
       <pre
         v-bind:class="{ 'h-[0px]': !showLogs, 'h-[250px]': showLogs }"
         id="logs"
-        class="fixed bottom-0 left-0 w-full bg-neutral-800 text-sm text-neutral-50 break-all whitespace-pre-wrap max-h-[250px] transition-all duration-300 h-[0px] overflow-y-scroll"
+        class="fixed bottom-0 user-select-all left-0 w-full bg-neutral-800 text-sm text-neutral-50 break-all whitespace-pre-wrap max-h-[250px] transition-all duration-300 h-[0px] overflow-y-scroll"
         :class="{ 'h-[250px] p-4': showLogs }"
         >{{ logs }}</pre
       >
