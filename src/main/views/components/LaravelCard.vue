@@ -24,7 +24,7 @@
 
     <button
       @click="showLaravelForm = !showLaravelForm"
-      class="w-full flex cursor-pointer transition-all duration-200 ease-in-out items-center justify-center py-2 border-t border-neutral-800 mt-4 hover:bg-neutral-800 group rounded-b-lg"
+      class="w-full flex cursor-pointer transition-all duration-200 ease-in-out items-center justify-center py-2 bg-red-500 mt-4 group rounded-b-lg"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-8 text-neutral-800 group-hover:text-white transition-all duration-200 ease-in-out"
+        class="size-8 text-white group-hover:text-white transition-all duration-200 ease-in-out"
         v-bind:class="{
           'rotate-180': !showLaravelForm,
         }"
