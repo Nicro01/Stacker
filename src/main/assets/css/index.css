@@ -17,10 +17,10 @@
   color: #666;
 }
 
-.card {
+/* .card {
   background: #ffffff;
-  box-shadow: 10px 10px 30px #adadad, -20px -20px 50px #f3f3f3;
-}
+  box-shadow: 7px 7px 14px #adadad, -7px -7px 14px #f3f3f3;
+} */
 
 .play-button {
   border-radius: 50%;
@@ -36,23 +36,23 @@
 }
 
 .folder-button {
-  background: linear-gradient(145deg, #faffdc, #d3d8b9);
-  box-shadow: 5px 5px 12px #9fa38c66, -5px -5px 12px #f3f3f3;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  /* box-shadow: 5px 5px 12px #adadad, -5px -5px 12px #f3f3f3; */
   cursor: pointer;
 }
 
 .folder-button:hover {
-  background: linear-gradient(145deg, #d3d8b9, #faffdc);
-  box-shadow: 7px 7px 24px #9fa38c, -23px -23px 46px #ffffff;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  /* box-shadow: 7px 7px 12px #adadad, -23px -23px 46px #ffffff; */
 }
 
-.run-button {
-  background: linear-gradient(145deg, #e0fee7, #bcd5c2);
-  box-shadow: 9px 9px 24px #8ea193, -9px -9px 24px #f3f3f3;
+/* .run-button {
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 9px 9px 12px #adadad, -9px -9px 12px #f3f3f3;
   cursor: pointer;
 }
 
 .run-button:hover {
-  background: linear-gradient(145deg, #bcd5c2, #e0fee7);
-  box-shadow: 9px 9px 24px #8ea193, -23px -23px 46px #ffffff;
-}
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 9px 9px 12px #adadad, -9px -9px 12px #ffffff;
+} */

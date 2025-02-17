@@ -6,16 +6,6 @@
       'pb-0': showLaravelForm,
     }"
   >
-    <!-- <div
-      class="absolute top-0 left-0 w-full h-[8px] bg-neutral-400 rounded-t-xl"
-    >
-      <div
-        class="bg-green-400 rounded-t-xl h-full transition-all duration-200"
-        id="progress"
-        :style="{ width: progress + '%' }"
-      ></div>
-    </div> -->
-
     <div class="flex justify-center pt-6">
       <img
         draggable="false"
@@ -29,7 +19,7 @@
     <button
       v-if="!showLaravelForm"
       @click="showLaravelForm = !showLaravelForm"
-      class="absolute play-button right-5 bottom-5 size-12 flex items-center justify-center transition-all duration-300 ease-in-out"
+      class="absolute rounded-full right-5 bottom-5 cursor-pointer bg-neutral-800 size-12 flex items-center justify-center transition-all duration-300 ease-in-out"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -89,9 +79,7 @@ export default {
   components: {
     LaravelForm,
   },
-  props: {
-    progress: Number,
-  },
+
   data() {
     return {
       showLaravelForm: false,

@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-gray-100 select-none text-neutral-700 h-screen">
+  <div class="bg-gray-100 select-none text-neutral-700 min-h-screen h-full">
     <WindowControls @show-terminal="toggleLogs" />
-    <div class="container mx-auto px-4 pb-4 pt-32">
+    <div class="mx-auto px-4 pb-4 pt-32">
       <div class="grid grid-cols-1 gap-6">
-        <LaravelCard :progress="laravelProgress" @terminal="toggleLogs" />
+        <LaravelCard @terminal="toggleLogs" />
       </div>
 
       <pre
@@ -31,7 +31,6 @@ export default {
       showLaravelForm: false,
       showLogs: false,
       logs: "",
-      laravelProgress: 0,
     };
   },
   methods: {
@@ -54,18 +53,6 @@ export default {
     });
     window.electron.on("laravel-creation-error", (data) => {
       this.logs += `${data}\n`;
-
-      // if (data.includes("project at")) {
-      //   this.laravelProgress = 10;
-      // } else if (data.includes("Installing dependencies")) {
-      //   this.laravelProgress = 40;
-      // } else if (data.includes("Locking")) {
-      //   this.laravelProgress = 60;
-      // } else if (data.includes("Generating optimized autoload files")) {
-      //   this.laravelProgress = 90;
-      // } else if (data.includes("php artisan key:generate")) {
-      //   this.laravelProgress = 100;
-      // }
     });
 
     window.electron.on("laravel-creation-success", (data) => {

@@ -4,10 +4,11 @@
       <div
         @click="selectStack(0)"
         :class="{
-          'border-2 border-green-400 scale-105': selectedStack === 0,
+          'border-2 border-red-400 scale-105 bg-red-400/20':
+            selectedStack === 0,
           'border-2 border-white': selectedStack !== 0,
         }"
-        class="card trasition-all cursor-pointer hover:scale-105 duration-200 ease-in-out p-6 rounded-lg flex flex-col gap-2"
+        class="card h-[170px] trasition-all cursor-pointer hover:scale-105 duration-200 ease-in-out p-6 rounded-lg flex flex-col items-center justify-center gap-2"
       >
         <div class="flex justify-center">
           <svg
@@ -32,10 +33,11 @@
         v-for="(stack, index) in stacks"
         @click="selectStack(index + 1)"
         :class="{
-          'border-2 border-green-400 scale-105': selectedStack === index + 1,
+          'border-2 border-red-400 scale-105 bg-red-400/20':
+            selectedStack === index + 1,
           'border-2 border-white': selectedStack !== index + 1,
         }"
-        class="card p-6 rounded-lg hover:scale-105 flex flex-col gap-2 cursor-pointer trasition-all duration-200 ease-in-out"
+        class="card h-[170px] trasition-all cursor-pointer hover:scale-105 duration-200 ease-in-out p-6 rounded-lg flex flex-col items-center justify-center gap-2"
       >
         <div class="flex justify-center items-center">
           <img
@@ -80,19 +82,19 @@
               type="text"
               v-model="projectPath"
               required
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
             />
             <button
               type="button"
               @click="selectFolder"
-              class="mt-1 folder-button flex items-center justify-center px-4 py-2 text-white rounded-md text-neutral-800 transition-all duration-300"
+              class="border-2 border-neutral-800 cursor-pointer hover:bg-neutral-800 hover:text-white flex items-center justify-center px-4 mt-1 rounded-md transition-all duration-300 ease-in-out"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
-                stroke="#d3d8b9"
+                stroke="#fff"
                 class="size-6 fill-neutral-800"
               >
                 <path
@@ -114,15 +116,28 @@
             type="text"
             v-model="projectName"
             required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
           />
         </div>
         <div>
           <button
             type="submit"
-            class="w-full run-button px-4 py-2 rounded-md transition-all duration-300 ease-in-out"
+            class="w-full border-2 border-neutral-800 cursor-pointer hover:bg-neutral-800 hover:text-white flex items-center justify-center px-4 py-2 rounded-md transition-all duration-300 ease-in-out"
           >
-            Create Project
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 fill-black"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+              />
+            </svg>
           </button>
         </div>
       </div>
