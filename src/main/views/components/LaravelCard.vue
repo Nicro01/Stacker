@@ -1,10 +1,6 @@
 <template>
   <div
-    class="card bg-white transition-all duration-300 ease-in-out rounded-xl flex flex-col items-center justify-center relative text-center"
-    v-bind:class="{
-      'pb-6': !showLaravelForm,
-      'pb-0': showLaravelForm,
-    }"
+    class="border-2 border-red-400 bg-white transition-all duration-300 ease-in-out rounded-xl flex flex-col items-center justify-center relative text-center overflow-hidden"
   >
     <div class="flex justify-center pt-6">
       <img
@@ -16,44 +12,19 @@
     </div>
     <h2 class="mt-4 text-xl font-semibold">Laravel</h2>
     <p class="mt-2 text-gray-600">Create a new Laravel project</p>
-    <button
-      v-if="!showLaravelForm"
-      @click="showLaravelForm = !showLaravelForm"
-      class="absolute rounded-full right-5 bottom-5 cursor-pointer bg-neutral-800 size-12 flex items-center justify-center transition-all duration-300 ease-in-out"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="size-6 fill-neutral-800"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
-        />
-      </svg>
-    </button>
 
     <LaravelForm
       @terminal="this.$emit('terminal')"
-      class="px-6"
+      class="px-6 transition-all duration-300 ease-in-out"
       v-bind:class="{
         'h-[0px] overflow-y-hidden': !showLaravelForm,
-        'min-h-[200px] pb-12 mt-6 overflow-y-hidden': showLaravelForm,
+        'h-[470px] overflow-y-hidden': showLaravelForm,
       }"
     />
 
     <button
-      v-if="showLaravelForm"
       @click="showLaravelForm = !showLaravelForm"
-      v-bind:class="{
-        'opacity-0': !showLaravelForm,
-        'opacity-100': showLaravelForm,
-      }"
-      class="w-full flex cursor-pointer transition-all duration-200 ease-in-out items-center justify-center py-2 border-t border-neutral-800 hover:bg-neutral-800 group rounded-b-xl"
+      class="w-full flex cursor-pointer transition-all duration-200 ease-in-out items-center justify-center py-2 border-t border-neutral-800 mt-4 hover:bg-neutral-800 group rounded-b-lg"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +32,10 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-8 text-neutral-800 group-hover:text-white"
+        class="size-8 text-neutral-800 group-hover:text-white transition-all duration-200 ease-in-out"
+        v-bind:class="{
+          'rotate-180': !showLaravelForm,
+        }"
       >
         <path
           stroke-linecap="round"
