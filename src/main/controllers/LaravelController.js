@@ -16,6 +16,7 @@ export default class LaravelController {
       try {
         const fullPath = await this.validateProjectPath(options);
 
+        /*TODO: Add Private Repository Option*/
         if (options.stack === 4) {
           await this.gitClone(
             event,
@@ -237,10 +238,19 @@ export default class LaravelController {
   }
 
   static async runBuildCommands(event, fullPath) {
-    await this.executeCommand(
-      event,
-      `cd "${fullPath}" && npm install && npm run build && php artisan migrate`
-    );
+    try {
+      await this.executeCommand(
+        event,
+        `cd "${fullPath}" && npm install && npm run build && php artisan migrate`
+      );
+    } catch (error) {
+      this.sendEvent(event, "error", error.message);
+      this.sendEvent(
+        event,
+        "success",
+        "Project created successfully but without building"
+      );
+    }
   }
 
   static executeCommand(event, command) {
