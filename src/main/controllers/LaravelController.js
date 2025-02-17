@@ -15,6 +15,30 @@ export default class LaravelController {
     ipcMain.on("create-laravel-project", async (event, options) => {
       try {
         const fullPath = await this.validateProjectPath(options);
+
+        if (options.stack === 4) {
+          await this.gitClone(
+            event,
+            fullPath,
+            options.projectUrl,
+            options.token
+          );
+          await this.configureEnvironment(event, fullPath, options);
+
+          await this.installComposerDependencies(event, fullPath);
+
+          if (options.npmDependencies) {
+            await this.runBuildCommands(event, fullPath);
+          }
+
+          this.sendEvent(
+            event,
+            "success",
+            "Project created and configured successfully"
+          );
+          return;
+        }
+
         await this.installLaravel(event, fullPath, options.projectName);
         await this.configureEnvironment(event, fullPath, options);
         await this.setupStack(event, fullPath, options);
@@ -56,6 +80,21 @@ export default class LaravelController {
     return fullPath;
   }
 
+  static async gitClone(event, fullPath, projectUrl, token) {
+    try {
+      this.sendEvent(event, "log", "Starting repository clone...");
+      const command = `git clone ${projectUrl} "${fullPath}"`;
+      await this.executeCommand(event, command);
+      this.sendEvent(event, "log", "Repository cloned successfully");
+    } catch (error) {
+      throw new Error(`Git clone failed: ${error.message}`);
+    }
+  }
+
+  static async installComposerDependencies(event, fullPath) {
+    await this.executeCommand(event, `cd "${fullPath}" && composer install`);
+  }
+
   static installLaravel(event, fullPath, projectName) {
     return new Promise((resolve, reject) => {
       const command = `composer create-project --prefer-dist laravel/laravel "${fullPath}"`;
@@ -70,6 +109,18 @@ export default class LaravelController {
   }
 
   static async configureEnvironment(event, fullPath, options) {
+    if (!fs.existsSync(path.join(fullPath, ".env"))) {
+      const envExamplePath = path.join(fullPath, ".env.example");
+      const envExampleContent = await fs.promises.readFile(
+        envExamplePath,
+        "utf8"
+      );
+      await fs.promises.writeFile(
+        path.join(fullPath, ".env"),
+        envExampleContent
+      );
+    }
+
     const envPath = path.join(fullPath, ".env");
     const envContent = await fs.promises.readFile(envPath, "utf8");
 
@@ -103,7 +154,7 @@ export default class LaravelController {
 
       await this.runBuildCommands(event, fullPath);
     } catch (error) {
-      throw new Error(`Stack installation failed: ${error.message}`);
+      throw new Error(`Installation failed: ${error.message}`);
     }
   }
 

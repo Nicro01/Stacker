@@ -53,29 +53,97 @@
 
     <form @submit.prevent="handleSubmit" class="text-start">
       <div class="space-y-4">
-        <div v-if="selectedStack === 1">
-          <label class="inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              name="auth"
-              value="true"
-              v-model="auth"
-              class="sr-only peer"
-            />
-            <div
-              class="relative w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
-            ></div>
-            <span class="ms-3 text-sm font-medium text-gray-900"
-              >Auth Template</span
-            >
-          </label>
+        <div class="w-full flex items-center gap-10">
+          <div v-if="selectedStack === 1">
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                name="auth"
+                value="true"
+                v-model="auth"
+                class="sr-only peer"
+              />
+              <div
+                class="relative w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"
+              ></div>
+              <span class="ms-3 text-sm font-medium text-gray-900"
+                >Auth Template</span
+              >
+            </label>
+          </div>
+
+          <div v-if="selectedStack === 4">
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                name="npmDependencies"
+                value="true"
+                v-model="npmDependencies"
+                class="sr-only peer"
+              />
+              <div
+                class="relative w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"
+              ></div>
+              <span class="ms-3 text-sm font-medium text-gray-900"
+                >NPM Dependencies</span
+              >
+            </label>
+          </div>
+
+          <div v-if="selectedStack === 4">
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                name="isPrivate"
+                value="true"
+                v-model="isPrivate"
+                class="sr-only peer"
+              />
+              <div
+                class="relative w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"
+              ></div>
+              <span class="ms-3 text-sm font-medium text-gray-900"
+                >Private Repository</span
+              >
+            </label>
+          </div>
+        </div>
+
+        <div v-if="selectedStack === 4 && isPrivate">
+          <label for="token" class="block text-sm font-medium text-gray-700"
+            >Private Key:</label
+          >
+          <input
+            type="text"
+            v-model="token"
+            name="token"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+          />
+        </div>
+
+        <div v-if="selectedStack === 4">
+          <label
+            for="projectUrl"
+            class="block text-sm font-medium text-gray-700"
+            >Project URL:
+            <span class="font-bold text-red-500 inline">*</span></label
+          >
+          <input
+            type="text"
+            v-model="projectUrl"
+            name="projectUrl"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+          />
         </div>
 
         <div>
           <label
             for="projectPath"
             class="block text-sm font-medium text-gray-700"
-            >Project Path:</label
+            >Project Path:<span class="font-bold text-red-500 inline"
+              >*</span
+            ></label
           >
           <div class="flex gap-2">
             <input
@@ -106,11 +174,13 @@
             </button>
           </div>
         </div>
+
         <div>
           <label
             for="projectName"
             class="block text-sm font-medium text-gray-700"
-            >Project Name:</label
+            >Project Name:
+            <span class="font-bold text-red-500 inline">*</span></label
           >
           <input
             type="text"
@@ -155,26 +225,32 @@ export default {
       stacks: [
         {
           name: "TALL",
-          description: "Tailwind, Alpine.js, Laravel, Livewire",
           imageClass: "w-16",
           image:
             "https://i.postimg.cc/cLDzs6fZ/8582affb-e65b-43ee-8fc4-0f956ff592da.png",
         },
         {
           name: "VILT",
-          description: "Vue, Inertia, Laravel, Tailwind",
           imageClass: "w-16",
           image:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/2367px-Vue.js_Logo_2.svg.png",
         },
         {
           name: "LIR",
-          description: "Vue, Inertia, Laravel, Tailwind",
           imageClass: "w-16",
           image: "https://laravext.dev/images/logo/laravext.png",
         },
+        {
+          name: "Git Clone",
+          imageClass: "w-16",
+          image: "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+        },
       ],
       auth: false,
+      projectUrl: "",
+      npmDependencies: false,
+      isPrivate: false,
+      token: "",
     };
   },
   methods: {
@@ -195,6 +271,10 @@ export default {
         projectName: this.projectName,
         stack: this.selectedStack,
         auth: this.auth,
+        projectUrl: this.projectUrl,
+        npmDependencies: this.npmDependencies,
+        isPrivate: this.isPrivate,
+        token: this.token,
       });
     },
 

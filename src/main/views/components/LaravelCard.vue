@@ -18,7 +18,7 @@
       class="px-6 transition-all duration-300 ease-in-out"
       v-bind:class="{
         'h-[0px] overflow-y-hidden': !showLaravelForm,
-        'h-[470px] overflow-y-hidden': showLaravelForm,
+        'h-[100%] overflow-y-hidden': showLaravelForm,
       }"
     />
 
