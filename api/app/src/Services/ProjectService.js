@@ -17,17 +17,11 @@ class ProjectService {
         }
 
         await this.configureEnvironment(fullPath, options, emitter);
-        await this.installDependencies(fullPath, options, emitter);
+        // await this.installDependencies(fullPath, options, emitter);
 
         if (options.stack !== 4) {
             await this.setupStack(fullPath, options, emitter);
         }
-
-        return res.status(201).json({
-            success: true,
-            message: "Project created successfully",
-            logs,
-        });
     }
 
     static async validateProjectPath(fullPath) {

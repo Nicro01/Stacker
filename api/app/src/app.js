@@ -5,7 +5,13 @@ const projectRoutes = require("./Routes/projectRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://127.0.0.1:8000/*",
+        methods: ["GET", "POST"],
+        credentials: true,
+    })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 
