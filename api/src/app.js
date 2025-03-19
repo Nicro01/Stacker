@@ -12,11 +12,13 @@ app.use(express.json());
 app.use("/api", projectRoutes);
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: err.message });
+    console.error(err.stack);
+    res.status(500).json({ error: err.message });
 });
 
 const PORT = process.env.PORT || 2025;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+let server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
+
+server.timeout = 0;

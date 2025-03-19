@@ -1,6 +1,8 @@
 <div data-theme="" class="relative mx-auto min-h-screen bg-center sm:flex sm:items-center sm:justify-center">
     <div class="border-primary/20 container border-s-2 ps-16">
 
+        <livewire:components.menu />
+
         <livewire:sections.hero />
 
         <div class="my-32 grid min-h-[70vh] grid-cols-8">

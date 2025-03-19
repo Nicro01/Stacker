@@ -9,6 +9,7 @@ use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\Pages\Home;
+use App\Livewire\Panel\Home as PanelHome;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +52,8 @@ Route::middleware('auth')->group(function () {
     // Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
     //     ->middleware('signed')
     //     ->name('verification.verify');
+
+    Route::get('stacker', PanelHome::class)->name('panel.home');
 
     Route::get('logout', LogoutController::class)
         ->name('logout');
