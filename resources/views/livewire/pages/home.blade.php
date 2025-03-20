@@ -1,5 +1,5 @@
-<div data-theme="" class="relative mx-auto min-h-screen bg-center sm:flex sm:items-center sm:justify-center">
-    <div class="border-primary/20 container border-s-2 ps-16">
+<div data-theme="" class="w-full">
+    <div class="">
 
         <livewire:components.menu />
 

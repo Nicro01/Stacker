@@ -14,16 +14,11 @@
                 class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-white" value="lofi" />
         </div>
 
-        <div x-show="theme != 'dark'" class="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow"
-            x-on:click="theme = 'dark'">
+        <div x-show="theme != 'blessedflare'"
+            class="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow"
+            x-on:click="theme = 'blessedflare'">
             <input type="radio" name="theme-buttons"
-                class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-[#000]" value="dark" />
-        </div>
-
-        <div x-show="theme != 'retro'" class="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow"
-            x-on:click="theme = 'retro'">
-            <input type="radio" name="theme-buttons"
-                class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-[#ECE3CA]" value="retro" />
+                class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-[#000]" value="blessedflare" />
         </div>
 
     </div>

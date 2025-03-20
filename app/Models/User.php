@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Stack::class);
     }
+
+    public function configs()
+    {
+        return $this->hasMany(Config::class);
+    }
 }
