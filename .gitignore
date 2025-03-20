@@ -22,4 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 /api/node_modules
+/api/app/node_modules
 /api/.env

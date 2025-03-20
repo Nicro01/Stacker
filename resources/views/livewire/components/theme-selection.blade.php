@@ -14,11 +14,10 @@
                 class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-white" value="lofi" />
         </div>
 
-        <div x-show="theme != 'default'"
-            class="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow"
-            x-on:click="theme = 'default'">
+        <div x-show="theme != 'dark'" class="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow"
+            x-on:click="theme = 'dark'">
             <input type="radio" name="theme-buttons"
-                class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-[#000]" value="default" />
+                class="btn theme-controller join-item size-10 min-w-10 rounded-full bg-[#000]" value="dark" />
         </div>
 
         <div x-show="theme != 'retro'" class="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="lofi">
 
 <head>
     <meta charset="utf-8">
@@ -32,7 +32,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-<body x-data="{ theme: '', themeDrop: false }" x-init="theme = Array.from(document.getElementsByName('theme-buttons')).find(el => el.checked)?.value" class="select-none">
+<body x-data="{ theme: '', themeDrop: false }" x-init="theme = Array.from(document.getElementsByName('theme-buttons')).find(el => el.checked)?.value ?? 'lofi'" class="select-none">
     @yield('body')
 
 
