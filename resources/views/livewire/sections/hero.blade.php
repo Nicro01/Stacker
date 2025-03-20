@@ -13,16 +13,15 @@
 
         <p class="text-start text-base">
             <span class="font-mono font-light">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae, qui dignissimos. Quis a nostrum,
-                veritatis autem consequuntur dolorem atque minus ea voluptatem modi eos debitis, in hic doloremque
-                officiis
-                minima?
+                Automate your project setup with perfect technology stacks.
+                From environment configuration to deployment-ready templates -
+                all in one command.
             </span>
         </p>
 
         <div class="flex items-center justify-between gap-6">
-            <button class="btn w-1/3">Default</button>
-            <button class="btn bg-accent text-accent-content w-2/3">Default</button>
+            <button class="btn w-1/3 uppercase">See More</button>
+            <button class="btn bg-accent text-accent-content w-2/3 uppercase">Download Now</button>
         </div>
     </div>
 

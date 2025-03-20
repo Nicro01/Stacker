@@ -27,45 +27,62 @@
 
         </div> --}}
 
-        <!-- Featured Stacks Section -->
-        <section class="bg-white py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="mb-16 text-center text-4xl font-bold">Supported Stacks</h2>
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
-                    <!-- Stack Card -->
-                    <div class="card bg-base-100 w-96 shadow-sm">
-                        <div class="card-body">
-                            <figure class="mb-8 self-start">
-                                <img src="{{ asset('images/stacks/tall.png') }}" alt="TALL Stack" draggable="false"
-                                    class="size-24" />
-                            </figure>
+        <section class="flex w-full items-center gap-8 py-20">
 
-                            <h3 class="mb-2 text-2xl font-semibold">Laravel TALL</h3>
-                            <p class="font-mono text-sm">Tailwind + Alpine + Livewire + Laravel</p>
-                        </div>
+            <div class="flex max-w-[50%] flex-col space-y-6">
+                <h2 class="text-4xl font-bold">Supported Stacks</h2>
+                <p class="text-lg">
+                    Choose from battle-tested templates or create your own. All stacks come with optimal configuration,
+                    pre-configured environments, and community-best practices baked right in.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 grid-rows-2 gap-8">
+                <div class="card bg-base-200 shadow-base-300 shadow-lg">
+                    <div class="card-body">
+                        <figure class="mb-8 self-start">
+                            <img src="{{ asset('images/stacks/tall.png') }}" alt="TALL Stack" draggable="false"
+                                class="size-24" />
+                        </figure>
+
+                        <h3 class="mb-2 text-2xl font-semibold">Laravel TALL</h3>
+                        <p class="font-mono text-sm">Tailwind + Alpine + Livewire + Laravel</p>
                     </div>
                 </div>
+
+
+                <div class="col-span-1 h-full w-full">
+                    <div class="skeleton h-full w-full"></div>
+                </div>
+                <div class="col-span-1 h-full w-full">
+                    <div class="skeleton h-full w-full"></div>
+                </div>
+
+                <div class="col-span-1 h-full w-full">
+                    <div class="skeleton h-full w-full"></div>
+                </div>
             </div>
+
         </section>
 
-        <!-- Features Section -->
+
         <section class="my-20 py-20">
             <div class="container mx-auto px-6">
                 <div class="grid gap-12 md:grid-cols-2">
                     <div class="flex flex-col space-y-6">
                         <h2 class="text-4xl font-bold">Your Project, Your Rules</h2>
-                        <p class="text-lg text-gray-600">
+                        <p class="text-lg">
                             Configure once, deploy everywhere. Stacker adapts to your workflow.
                         </p>
                         <ul class="space-y-6">
                             <li class="flex items-center space-x-4">
-                                <div class="rounded-lg bg-green-100 p-3">⚡</div>
+                                <div class="bg-base-200 rounded-lg p-3">⚡</div>
                                 <div>
                                     <h3 class="text-lg font-semibold">Instant Setup</h3>
-                                    <p class="text-gray-600">Create projects with pre-configured stacks in seconds</p>
+                                    <p class="">Create projects with pre-configured stacks in seconds</p>
                                 </div>
                             </li>
-                            <!-- Add more features -->
+
                         </ul>
                     </div>
                     <div class="bg-base-200 rounded-xl p-8">
