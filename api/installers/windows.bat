@@ -1,7 +1,7 @@
 @echo off
-
 set SERVICE_NAME=stacker-api
 set INSTALL_DIR="C:\Program Files\%SERVICE_NAME%"
+set SOURCE_DIR="C:\laragon\www\stacker_laravel\api"
 
 REM Criar diretório e copiar arquivos
 if not exist %INSTALL_DIR% (
@@ -10,8 +10,8 @@ if not exist %INSTALL_DIR% (
     echo O diretório %INSTALL_DIR% já existe.
 )
 
-echo Copiando arquivos...
-xcopy /E /Y ..\ %INSTALL_DIR%
+echo Copiando arquivos da API...
+xcopy /E /Y %SOURCE_DIR%\* %INSTALL_DIR%\
 
 REM Verificar se o executável existe
 set EXECUTABLE_PATH=%INSTALL_DIR%\app\dist\stacker_api-win.exe
@@ -27,6 +27,9 @@ if errorlevel 1 (
     echo Erro: Falha ao instalar o serviço.
     exit /b 1
 )
+
+REM Configurar para iniciar automaticamente
+nssm set %SERVICE_NAME% Start SERVICE_AUTO_START
 
 REM Iniciar o serviço
 echo Iniciando o serviço...

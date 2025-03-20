@@ -114,8 +114,6 @@
                     <x-heroicon-s-document-plus class="size-6" />
                 </div>
 
-
-
                 {{-- Env Modal --}}
                 <dialog id="envModal" class="modal z-[999] w-screen">
                     <div class="modal-box">
@@ -146,8 +144,6 @@
 
             </div>
 
-
-
             <div class="form-control">
                 <label class="label mb-2">
                     <span class="label-text">Project Path</span>
@@ -168,7 +164,9 @@
                     class="input input-bordered w-full" />
             </div>
 
-
+            @if ($projectId)
+                <livewire:components.terminal :project-id="$projectId" />
+            @endif
 
             <div class="form-control">
                 <button type="submit" class="btn btn-success w-full">
@@ -190,10 +188,6 @@
             <span x-show="! open" x-text="`Show`">Hide</span>
         </button>
     </div>
-
-    @if ($projectId)
-        <livewire:components.terminal :project-id="$projectId" />
-    @endif
 
     <script>
         Livewire.on('close-modal', () => {

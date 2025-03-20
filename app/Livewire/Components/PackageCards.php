@@ -48,11 +48,13 @@ class PackageCards extends Component
     {
         $this->loading = true;
         $this->logs = [];
+        $configs = json_decode($this->selectedConfig['config']);
 
         $response = Http::timeout(0)->post('http://127.0.0.1:2025/api/projects', [
             'projectName' => $this->projectName,
             'projectPath' => $this->projectPath,
             'stack' => $this->selectedStack,
+            'configs' => $configs,
         ]);
 
         $this->projectId = $response->json()['projectId'];

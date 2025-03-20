@@ -1,8 +1,5 @@
 <div class="relative flex min-h-screen w-full items-center justify-between gap-16">
 
-
-
-
     <div class="flex max-w-[50%] flex-col gap-8">
         <span class="badge badge-md">All-in-one tool</span>
 

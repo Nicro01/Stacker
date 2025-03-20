@@ -22,7 +22,7 @@ class ProjectService {
 
         await this.configureEnvironment(fullPath, options, emitter);
 
-        await this.installDependencies(fullPath, options, emitter);
+        // await this.installDependencies(fullPath, options, emitter);
 
         if (options.stack !== 4) {
             await this.setupStack(fullPath, options, emitter);
@@ -77,13 +77,32 @@ class ProjectService {
     // }
 
     static async installDependencies(fullPath, options, emitter) {
-        const command = `cd "${fullPath}" && npm install && npm run build && php artisan migrate`;
+        const command = `cd "${fullPath}" && npm install && npm run build`;
 
         await CommandRunner.execute(command, emitter);
     }
 
-    static async configureEnvironment(fullPath, options, emitter) {
-        //
+    static async configureEnvironment(projectDir, options, emitter) {
+        const fs = require("fs").promises;
+        const path = require("path");
+
+        try {
+            const fullPath = path.join(projectDir, ".env");
+
+            const dir = path.dirname(fullPath);
+            await fs.mkdir(dir, { recursive: true });
+
+            const envContents = Object.entries(options.configs)
+                .map(([key, value]) => `${key}=${value}`)
+                .join("\n");
+
+            emitter?.emit("environment-configuring");
+            await fs.writeFile(fullPath, envContents, "utf8");
+            emitter?.emit("environment-configured");
+        } catch (error) {
+            emitter?.emit("error", `ENV Config Failed: ${error.message}`);
+            throw error;
+        }
     }
 
     static async setupStack(fullPath, options, emitter) {
