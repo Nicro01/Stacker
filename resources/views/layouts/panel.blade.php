@@ -13,7 +13,6 @@
                         }">
 
                         <x-heroicon-s-cube-transparent class="h-6 min-w-8" />
-
                     </a>
 
 
