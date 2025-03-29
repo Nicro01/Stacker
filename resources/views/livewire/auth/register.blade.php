@@ -3,7 +3,7 @@
 <div class="flex flex-col">
     <div>
         <a href="{{ route('home') }}">
-            <span class="text-5xl font-bold">Stacker</span>
+            <span class="aldrich text-5xl font-bold">Stacker</span>
         </a>
 
         <h2 class="mt-6 text-3xl font-semibold leading-9">

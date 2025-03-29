@@ -2,7 +2,7 @@
 <div class="flex flex-col">
     <div class="">
         <a href="{{ route('home') }}">
-            <span class="text-5xl font-bold">Stacker</span>
+            <span class="aldrich text-5xl font-bold">Stacker</span>
         </a>
 
         <h2 class="mt-6 text-3xl font-semibold leading-9">
@@ -52,7 +52,7 @@
 
                 <div class="mt-6">
 
-                    <button type="submit" class="btn btn-lg w-full">
+                    <button type="submit" class="btn btn-neutral w-full">
                         Sign in
                     </button>
 

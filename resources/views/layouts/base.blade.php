@@ -11,7 +11,7 @@
     @endif
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}">
+    <link rel="shortcut icon" href="{{ url(asset('stacker-icon.png')) }}">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -30,11 +30,16 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- Font Poppins --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
 </head>
 
-<body x-data="{ theme: '', themeDrop: false }" x-init="theme = Array.from(document.getElementsByName('theme-buttons')).find(el => el.checked)?.value ?? 'lofi'" class="select-none">
+<body x-data="{ theme: '', themeDrop: false }" x-init="theme = Array.from(document.getElementsByName('theme-buttons')).find(el => el.checked)?.value ?? 'lofi'" class="poppins-regular select-none">
     @yield('body')
-
 
     <livewire:components.theme-selection />
 </body>

@@ -1,10 +1,15 @@
 <div class="relative flex min-h-screen w-full items-center justify-between gap-16">
 
     <div class="flex max-w-[50%] flex-col gap-8">
-        <span class="badge badge-md">All-in-one tool</span>
+        <span>
+            {{-- class="badge badge-md" --}}
+            {{-- All-in-one tool --}}
+            <img draggable="false" src="{{ asset('stacker-logo.png') }}" alt="Logo"
+                class="rounded-field w-32 bg-white px-2 py-1" />
+        </span>
 
         <h1 class="text-start text-5xl">
-            <span class="section -ms-[67px] border-s-4 ps-16 font-mono font-bold">
+            <span class="aldrich -ms-[67px] border-s-4 ps-16 font-bold">
                 Create and automate
             </span>
             <br>
@@ -12,7 +17,7 @@
         </h1>
 
         <p class="text-start text-base">
-            <span class="font-mono font-light">
+            <span class="font-light">
                 Automate your project setup with perfect technology stacks.
                 From environment configuration to deployment-ready templates -
                 all in one command.

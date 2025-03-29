@@ -23,7 +23,7 @@ class Terminal extends Component
         if ($response->successful()) {
             $newLogs = $response->json()['logs'];
 
-            $this->logs = array_merge($this->logs, $newLogs);
+            $this->logs = $newLogs;
 
             if (in_array("complete", $newLogs)) {
                 $this->dispatch('stop-log-polling');

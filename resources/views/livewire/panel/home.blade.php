@@ -1,14 +1,16 @@
-<div class="grid min-h-screen grid-cols-3 items-start gap-6 py-16">
-    {{-- <div class="col-span-3">
-        <h2 class="text-center text-5xl font-bold">
-            Stacker Panel
+<div class="grid min-h-screen grid-cols-3 place-content-start items-start gap-12 py-16">
+
+    <div class="col-span-3">
+        <h2 class="aldrich text-4xl font-bold">
+            Packages
         </h2>
-    </div> --}}
+    </div>
 
     @foreach ($packages as $package)
-        <livewire:components.package-cards :id="$package->id" :key="$package->id" />
+        @if ($package->id !== 1)
+            <livewire:components.package-cards :id="$package->id" :key="$package->id" />
+        @endif
     @endforeach
-
 
 
 </div>

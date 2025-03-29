@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Package;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,13 +15,24 @@ class PackageSeeder extends Seeder
     public function run(): void
     {
         $package = [
-            'name' => 'Laravel',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
-            'image' => 'laravel.png',
-            'user_id' => 1,
+            [
+                'name' => 'New Package',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
+                'image' => 'new_package.png',
+            ],
+            [
+                'name' => 'Laravel',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
+                'image' => 'laravel.png',
+            ],
         ];
 
+        $users = User::all();
 
-        Package::create($package);
+        foreach ($users as $user) {
+            foreach ($package as $p) {
+                $user->packages()->create($p);
+            }
+        }
     }
 }

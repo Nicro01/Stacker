@@ -10,6 +10,8 @@
             x-transition:leave-end="transform -translate-x-full"
             class="menu bg-base-200 text-base-content min-h-full w-80 cursor-default p-4">
 
+            <img draggable="false" src="{{ asset('stacker-logo.png') }}" alt="Logo" class="mx-auto w-32 py-6" />
+
             @auth
 
                 <li><a href="{{ route('panel.home') }}">Panel</a></li>
