@@ -253,7 +253,12 @@
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(info)
+                    body: JSON.stringify({
+                        projectPath: "C:\\laragon\\www",
+                        projectName: "stylefy",
+                        stack: "2",
+                        auth: true
+                    })
                 })
                 .then(response => {
                     if (!response.ok) {

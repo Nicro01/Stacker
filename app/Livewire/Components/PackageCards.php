@@ -34,7 +34,7 @@ class PackageCards extends Component
 
     public $configs;
     public $selectedConfig;
-    public $info = [];
+    public $info;
 
     protected $rules = [
         'envFile' => 'required|file|mimes:env,txt|max:1024',
@@ -70,13 +70,12 @@ class PackageCards extends Component
     #[On('get-info')]
     public function getInfo()
     {
-        $this->info = [
+        $this->info = json_encode([
             'projectPath' => $this->projectPath,
             'projectName' => $this->projectName,
             'stack' => $this->selectedStack,
-            'auth' => false,
-            // 'config' => $this->selectedConfig,
-        ];
+            'auth' => false
+        ], JSON_FORCE_OBJECT);
     }
 
     public function updatedEnvFile()
