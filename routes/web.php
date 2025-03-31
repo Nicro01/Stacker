@@ -11,7 +11,7 @@ use App\Livewire\Auth\Verify;
 use App\Livewire\Pages\Home;
 use App\Livewire\Panel\Home as PanelHome;
 use App\Livewire\Panel\Configs as PanelConfigs;
-
+use App\Livewire\Panel\Profile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,9 +55,15 @@ Route::middleware('auth')->group(function () {
     //     ->middleware('signed')
     //     ->name('verification.verify');
 
-    Route::get('stacker', PanelHome::class)->name('panel.home');
+    Route::prefix('stacker')->group(function () {
+        Route::get('/', PanelHome::class)
+            ->name('panel.home');
 
-    Route::get('stacker/configs', PanelConfigs::class)->name('panel.configs');
+        Route::get('profile', Profile::class)->name('profile');
+
+        Route::get('configs', PanelConfigs::class)
+            ->name('panel.configs');
+    });
 
     Route::get('logout', LogoutController::class)
         ->name('logout');

@@ -27,7 +27,7 @@
 
         </div> --}}
 
-        <section class="grid w-full grid-cols-2 items-center gap-12 py-20">
+        <section class="grid w-full grid-cols-1 items-center gap-12 py-20 max-lg:px-6 lg:grid-cols-2">
 
             <div class="flex flex-col space-y-6">
                 <h2 class="aldrich text-4xl font-bold">Supported Stacks</h2>
@@ -37,7 +37,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 grid-rows-2 gap-8">
+            <div class="grid grid-cols-1 grid-rows-4 gap-8 sm:grid-cols-2 sm:grid-rows-2">
                 <div class="card bg-base-200 shadow-base-300 shadow-lg">
                     <div class="card-body">
                         <figure class="mb-8 self-start">
@@ -75,7 +75,7 @@
         </section>
 
 
-        <section class="my-20 py-20">
+        <section class="my-20 py-20 max-lg:px-6">
             <div class="grid gap-12 md:grid-cols-2">
                 <div class="flex flex-col space-y-6">
                     <h2 class="aldrich text-4xl font-bold">Your Project, Your Rules</h2>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="bg-base-200 rounded-xl p-8">
 
-                    <div class="mockup-code w-full">
+                    <div class="mockup-code h-full w-full">
                         <pre data-prefix="$"><code># .env.example</code></pre>
                         <pre data-prefix=">" class="text-success"><code>"My Stacker Project"</code></pre>
                         <pre data-prefix=">" class="text-warning"><code>mysql</code></pre>
@@ -107,7 +107,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section id="cta" class="rounded-box shadow-base bg-base-200 mb-20 py-20 shadow-lg">
+        <section id="cta" class="rounded-box shadow-base bg-base-200 mb-20 py-20 shadow-lg max-lg:mx-6">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="aldrich mb-8 text-4xl font-bold">Start Stacking Today</h2>
                 <p class="mb-12 text-xl">Join thousands of developers saving hours every day</p>

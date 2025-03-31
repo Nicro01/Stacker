@@ -4,6 +4,7 @@
         <h2 class="aldrich text-4xl font-bold">
             Project Configurations
         </h2>
+        <p class="text-lg">Manage your project configurations here.</p>
     </div>
 
 </div>

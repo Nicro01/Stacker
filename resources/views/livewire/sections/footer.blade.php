@@ -1,7 +1,7 @@
 <footer class="footer sm:footer-horizontal text-base-content p-10">
     <aside class="aldrich text-4xl font-bold">
         <img draggable="false" src="{{ asset('stacker-logo.png') }}" alt="Logo"
-            class="rounded-field w-32 w-40 bg-white px-2 py-1" />
+            class="rounded-field w-40 bg-white px-2 py-1" />
     </aside>
     <nav>
         <h6 class="footer-title aldrich">Services</h6>

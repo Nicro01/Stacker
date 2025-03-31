@@ -4,6 +4,7 @@
         <h2 class="aldrich text-4xl font-bold">
             Packages
         </h2>
+        <p class="text-lg">Select a package to get started.</p>
     </div>
 
     @foreach ($packages as $package)
