@@ -3,6 +3,7 @@
 namespace App\Livewire\Panel;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -32,6 +33,8 @@ class Profile extends Component
             } else {
                 $this->status = false;
             }
+
+            Log::info('Status: ' . $response);
         } catch (\Exception $e) {
             $this->status = false;
         }

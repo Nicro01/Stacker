@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	port := flag.String("port", "9025", "Número da porta inicial para o servidor API")
+	port := flag.String("port", "2025", "Número da porta inicial para o servidor API")
 	flag.Parse()
 
 	go func() {
