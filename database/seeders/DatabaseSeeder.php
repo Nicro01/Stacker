@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'port' => '2025',
-            'projects_path' => 'C:/laragon/www/',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        //     'port' => '2025',
+        //     'projects_path' => 'C:/laragon/www/',
+        // ]);
 
         $this->call([
             PackageSeeder::class,
