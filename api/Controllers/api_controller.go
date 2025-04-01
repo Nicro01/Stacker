@@ -115,4 +115,35 @@ func GetFoldersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ChangePortHandler(w http.ResponseWriter, r *http.Request) {
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		fmt.Printf("Erro ao ler o corpo da requisição: %v\n", err)
+		Utils.RespondWithError(w, http.StatusBadRequest, "Erro ao ler o corpo da requisição")
+		return
+	}
+	defer r.Body.Close()
+
+	var requestData *Models.RequestPort
+
+	if err := json.Unmarshal(body, &requestData); err != nil {
+		fmt.Printf("Erro ao fazer unmarshal do JSON: %v\n", err)
+		Utils.RespondWithError(w, http.StatusBadRequest, "Formato JSON inválido")
+		return
+	}
+
+	if requestData.Port == "" {
+		fmt.Printf("A porta é obrigatória\n")
+		Utils.RespondWithError(w, http.StatusBadRequest, "A porta é obrigatória")
+		return
+	}
+
+	if err := Services.ChangePort(requestData.Port); err != nil {
+		fmt.Printf("Erro ao alterar a porta: %v\n", err)
+		Utils.RespondWithError(w, http.StatusInternalServerError, "Erro ao alterar a porta")
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, `{"status": "ok"}`)
 }

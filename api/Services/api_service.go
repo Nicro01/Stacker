@@ -83,6 +83,13 @@ func ListFoldersInWorkspace(workspacePath string) ([]string, error) {
 	return folders, err
 }
 
+func ChangePort(port string) error {
+	// err := Utils.changePort(port)
+	// if err != nil {
+	// 	return err
+	// }
+	return nil
+}
 func executeCommand(ctx context.Context, command string, projectID uuid.UUID) error {
 	var cmd *exec.Cmd
 
