@@ -1,5 +1,5 @@
 <div class="max-sm:hidden">
-    <div class="fixed right-10 top-10 flex size-12 items-center justify-center rounded-full bg-white p-2 shadow-xl"
+    <div class="fixed right-10 top-10 z-50 flex size-12 items-center justify-center rounded-full bg-white p-2 shadow-xl"
         x-on:click.away="themeDrop = false" x-on:click="themeDrop = !themeDrop">
         <div class="btn size-10 min-w-10 rounded-full">
 

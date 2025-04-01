@@ -38,7 +38,7 @@
                     </a>
                 </div>
             </div>
-            <div class="ms-[8vw] flex-1 px-0">
+            <div class="ms-[8vw] flex-1 px-0 pe-[1.5vw]">
                 @yield('content')
 
                 @isset($slot)

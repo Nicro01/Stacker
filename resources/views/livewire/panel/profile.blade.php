@@ -1,5 +1,7 @@
 <div class="grid min-h-screen grid-cols-3 place-content-start items-start gap-12">
 
+    <livewire:components.theme-selection />
+
     <div class="rounded-box bg-base-200 shadow-base relative col-span-3 flex h-[20vh] shadow-lg">
 
         <figure class="rounded-box group relative h-full w-full object-cover" x-data="{ backgroundImage: false }"

@@ -41,7 +41,7 @@
 <body x-data="{ theme: '', themeDrop: false }" x-init="theme = Array.from(document.getElementsByName('theme-buttons')).find(el => el.checked)?.value ?? 'lofi'" class="poppins-regular select-none">
     @yield('body')
 
-    {{-- <livewire:components.theme-selection /> --}}
+
 </body>
 
 </html>

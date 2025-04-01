@@ -1,4 +1,4 @@
-<div class="grid min-h-screen grid-cols-3 place-content-start items-start gap-12 py-16">
+<div class="grid min-h-screen grid-cols-3 place-content-start items-start gap-6 py-16">
 
     <div class="col-span-3">
         <h2 class="aldrich text-4xl font-bold">
@@ -8,9 +8,7 @@
     </div>
 
     @foreach ($packages as $package)
-        @if ($package->id !== 1)
-            <livewire:components.package-cards :id="$package->id" :key="$package->id" />
-        @endif
+        <livewire:components.package-card :package="$package" :wire:key="$package->id" />
     @endforeach
 
 
