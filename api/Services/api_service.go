@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 	"runtime"
 	"stacker-api/Models"
@@ -15,7 +16,7 @@ import (
 
 var logStore = Models.NewLogStore()
 
-func CreateLaravelProject(requestData *Models.RequestData) error {
+func CreateLaravelProject(requestData *Models.RequestProjectData) error {
 	projectID := uuid.New()
 	logMessage := fmt.Sprintf("Starting project creation: %s/%s", requestData.ProjectPath, requestData.ProjectName)
 
@@ -69,6 +70,26 @@ func installTallStack(fullpath string, auth bool, projectID uuid.UUID) error {
 	return nil
 }
 
+func ListFoldersInWorkspace(workspacePath string) ([]string, error) {
+	var folders []string
+
+	entries, err := os.ReadDir(workspacePath)
+
+	for _, entry := range entries {
+		if entry.IsDir() {
+			folders = append(folders, entry.Name())
+		}
+	}
+	return folders, err
+}
+
+func ChangePort(port string) error {
+	// err := Utils.changePort(port)
+	// if err != nil {
+	// 	return err
+	// }
+	return nil
+}
 func executeCommand(ctx context.Context, command string, projectID uuid.UUID) error {
 	var cmd *exec.Cmd
 
