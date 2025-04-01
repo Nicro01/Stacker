@@ -37,6 +37,8 @@ class Profile extends Component
             Log::info('Status: ' . $response);
         } catch (\Exception $e) {
             $this->status = false;
+
+            Log::error("Erro ao obter status da API: {$e->getMessage()}");
         }
     }
 
