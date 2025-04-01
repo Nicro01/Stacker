@@ -12,6 +12,10 @@ class Profile extends Component
 
     public $status;
 
+    public $rootPath;
+
+    public $apiPort;
+
     public function mount()
     {
         $this->user = auth()->user();
@@ -31,6 +35,18 @@ class Profile extends Component
         } catch (\Exception $e) {
             $this->status = false;
         }
+    }
+
+    public function changeRootPath()
+    {
+        $this->user->projects_path = $this->rootPath;
+        $this->user->save();
+    }
+
+    public function changeApiPort()
+    {
+        $this->user->port = $this->apiPort;
+        $this->user->save();
     }
 
     public function render()
