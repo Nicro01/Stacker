@@ -69,12 +69,13 @@ func statusCheck(toggleStatus *systray.MenuItem) {
 }
 
 func main() {
-	port := flag.String("port", "2025", "Número da porta inicial para o servidor API")
+	port := flag.String("port", "9025", "Número da porta inicial para o servidor API")
 	flag.Parse()
 
 	go func() {
-		actualPort := Utils.FindAvailablePort(*port)
-		statusPortCh <- actualPort
+		// actualPort := Utils.FindAvailablePort(*port)
+		// statusPortCh <- actualPort
+		actualPort := *port
 		Utils.SetCurrentPort(actualPort)
 
 		Routes.Setup()
