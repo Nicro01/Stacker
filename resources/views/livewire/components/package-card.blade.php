@@ -12,7 +12,7 @@
     </div>
 
     <div x-show="open" x-collapse>
-        <form wire:submit.prevent="requestLaravelProject" class="card-body flex flex-col gap-4 pt-0">
+        <form x-on:submit.prevent="requestLaravelProject($wire)" class="card-body flex flex-col gap-4 pt-0">
 
             @if ($package->id !== 1)
 
@@ -92,5 +92,33 @@
 
     <script>
         Livewire.on('close-modal', () => envModal?.close?.());
+
+        async function requestLaravelProject(component) {
+            component.set('isLoading', true);
+
+            const info = {
+                id: component.get('package.id'),
+                projectPath: component.get('projectPath'),
+                projectName: component.get('projectName'),
+                selectedStack: component.get('selectedStack'),
+                auth: component.get('authTALL'),
+            };
+
+            try {
+                await axios.post('http://127.0.0.1:2025/api/create-project', info);
+
+                const response = await axios.get('http://127.0.0.1:2025/api/project-ids');
+                const projectId = response.data.projectIDs?.[0] || null;
+
+                component.set('projectId', projectId);
+                component.dispatch('start-log-polling', {
+                    projectId
+                });
+            } catch (error) {
+                console.error('Error creating project:', error);
+            }
+
+            component.set('isLoading', false);
+        }
     </script>
 </div>
