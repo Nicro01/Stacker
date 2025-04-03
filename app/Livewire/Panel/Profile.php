@@ -22,25 +22,31 @@ class Profile extends Component
         $this->user = auth()->user();
     }
 
-    #[On('get-status')]
-    public function getApiStatus()
+    #[On('update-status')]
+    public function updateStatus(bool $status)
     {
-        try {
-            $response = Http::get('http://127.0.0.1:2025/api/status');
-
-            if ($response->successful()) {
-                $this->status = true;
-            } else {
-                $this->status = false;
-            }
-
-            Log::info('Status: ' . $response);
-        } catch (\Exception $e) {
-            $this->status = false;
-
-            Log::error("Erro ao obter status da API: {$e->getMessage()}");
-        }
+        $this->status = $status;
     }
+
+    // #[On('get-status')]
+    // public function getApiStatus()
+    // {
+    //     try {
+    //         $response = Http::get('http://127.0.0.1:2025/api/status');
+
+    //         if ($response->successful()) {
+    //             $this->status = true;
+    //         } else {
+    //             $this->status = false;
+    //         }
+
+    //         Log::info('Status: ' . $response);
+    //     } catch (\Exception $e) {
+    //         $this->status = false;
+
+    //         Log::error("Erro ao obter status da API: {$e->getMessage()}");
+    //     }
+    // }
 
     public function changeRootPath()
     {

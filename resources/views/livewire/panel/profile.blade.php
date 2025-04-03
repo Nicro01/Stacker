@@ -98,6 +98,7 @@
 
         <div class="-mt-[3.5vw] flex flex-col items-end gap-2">
 
+
             @if ($status)
                 <div class="flex items-center gap-2">
                     <div class="inline-grid *:[grid-area:1/1]">
@@ -114,10 +115,18 @@
                 </div>
             @endif
 
-            <div x-data="{ interval: null }" x-init="interval = setInterval(() => {
-                @this.getApiStatus()
+            <div x-data="{ interval: null }" x-init="interval = setInterval(async () => {
+                const status = await getApiStatus();
+                if (status) {
+                    console.log('Status: Online');
+                    $wire.updateStatus(true);
+                } else {
+                    console.log('Status: Offline');
+                    $wire.updateStatus(false);
+                }
             }, 3000);">
             </div>
+
 
             <div class="flex flex-col items-end gap-4">
                 <div class="kbd kbd-md cursor-pointer" onclick="folderModal.showModal()">Root Folder :
@@ -184,6 +193,18 @@
             </div>
         </div>
     </dialog>
+
+    <script>
+        async function getApiStatus() {
+            try {
+                const response = await axios.get('http://127.0.0.1:2025/api/status');
+                return response.data.status;
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
+        }
+    </script>
 
 
 </div>
