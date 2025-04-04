@@ -13,6 +13,7 @@ use App\Livewire\Panel\Home as PanelHome;
 use App\Livewire\Panel\Configs as PanelConfigs;
 use App\Livewire\Panel\Profile;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,23 @@ Route::middleware('guest')->group(function () {
 //     Route::get('password/confirm', Confirm::class)
 //         ->name('password.confirm');
 // });
+
+Route::get('/github/redirect', function () {
+    return Socialite::driver('github')->scopes(['repo'])->redirect();
+});
+
+Route::get('/github/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+
+    // Salvar token no banco (criptografado)
+    auth()->user()->update([
+        'github_token' => encrypt($githubUser->token),
+        'github_username' => $githubUser->nickname,
+        'github_avatar' => $githubUser->avatar,
+    ]);
+
+    return redirect('/stacker')->with('status', 'GitHub conectado!');
+});
 
 Route::middleware('auth')->group(function () {
     // Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)

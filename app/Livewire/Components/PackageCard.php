@@ -25,6 +25,7 @@ class PackageCard extends Component
     public $projectPath;
     public $projectName;
     public $projectId;
+    public $createRepository = false;
     public $auth = false;
     public $port;
 
@@ -34,12 +35,18 @@ class PackageCard extends Component
     public $isOpen = false;
     public $isLoading = false;
 
+    public $gitHubToken;
+    public $gitHubUsername;
+
     public function mount(Package $package)
     {
         $this->package = $package;
         $this->stacks = $package->stacks;
         $this->configs = Auth::user()->configs;
         $this->selectedConfigId;
+
+        $this->gitHubToken = decrypt(Auth::user()?->github_token);
+        $this->gitHubUsername = Auth::user()?->github_username;
 
         // Debug padrão
         $this->projectPath = Auth::user()?->projects_path;

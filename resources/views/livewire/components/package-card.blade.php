@@ -40,6 +40,15 @@
                 </select>
             @endif
 
+            <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 w-full border p-4">
+                <legend class="fieldset-legend">Github Repository</legend>
+                <label class="fieldset-label">
+                    <input type="checkbox" wire:model.live="createRepository" class="toggle" />
+                    <span>Create Github Repository?</span>
+                </label>
+            </fieldset>
+
+
             @php
                 $selected = collect($stacks)->firstWhere('id', $selectedStack);
             @endphp
@@ -114,6 +123,9 @@
                 projectName: component.get('projectName'),
                 stack: component.get('selectedStack'),
                 auth: component.get('auth'),
+                createRepository: component.get('createRepository'),
+                gitHubToken: component.get('gitHubToken'),
+                gitHubUsername: component.get('gitHubUsername'),
             };
 
             console.log('Requesting Laravel project with info:', info);

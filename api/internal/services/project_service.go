@@ -1,13 +1,17 @@
 package services
 
 import (
-	"context"
+	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
 
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/guifaraco/stacker-api/internal/dto/request"
 )
@@ -25,11 +29,17 @@ func NewLaravelProjectService() *LaravelProjectService {
 	return &LaravelProjectService{}
 }
 
-func (s *LaravelProjectService) CreateProject(ctx context.Context, req request.CreateLaravelProjectRequest) error {
+func (s *LaravelProjectService) CreateProject(ctx *gin.Context, req request.CreateLaravelProjectRequest) error {
 	// Verifica se o diretório já existe
 	projectDir := filepath.Join(req.ProjectPath, req.ProjectName)
 	if _, err := os.Stat(projectDir); err == nil {
 		return ErrProjectExists
+	}
+
+	if req.CreateRepository {
+		if err := s.CreateRepository(ctx, req); err != nil {
+			return fmt.Errorf("erro ao criar repositório: %w", err)
+		}
 	}
 
 	// Cria projeto base
@@ -41,21 +51,34 @@ func (s *LaravelProjectService) CreateProject(ctx context.Context, req request.C
 	}
 
 	// Instala stack específica
+	var err error
 	switch req.Stack {
-	case 1: // Laravel Default
-		return nil
-	case 2: // TALL Stack
-		return s.installTallStack(ctx, req, projectID)
+	case 1:
+		// Laravel default – nada extra a instalar
+	case 2:
+		err = s.installTallStack(ctx, req, projectID)
 	case 3:
-		return s.createVILTProject(ctx, req, projectID)
+		err = s.createVILTProject(ctx, req, projectID)
 	case 4:
-		return s.createRILTProject(ctx, req, projectID)
+		err = s.createRILTProject(ctx, req, projectID)
 	default:
 		return ErrInvalidStack
 	}
+
+	if err != nil {
+		return err
+	}
+
+	if req.GithubToken != "" && req.GithubUsername != "" {
+		if err := s.pushToGithub(ctx, req); err != nil {
+			return fmt.Errorf("falha ao dar push no GitHub: %w", err)
+		}
+	}
+
+	return nil
 }
 
-func (s *LaravelProjectService) createBaseProject(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
+func (s *LaravelProjectService) createBaseProject(ctx *gin.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
 
 	cmd := exec.CommandContext(ctx,
 		"composer", "create-project", "laravel/laravel",
@@ -70,7 +93,7 @@ func (s *LaravelProjectService) createBaseProject(ctx context.Context, req reque
 	return nil
 }
 
-func (s *LaravelProjectService) installTallStack(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
+func (s *LaravelProjectService) installTallStack(ctx *gin.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
 	projectDir := filepath.Join(req.ProjectPath, req.ProjectName)
 
 	// Instala Livewire e TALL Preset
@@ -93,7 +116,7 @@ func (s *LaravelProjectService) installTallStack(ctx context.Context, req reques
 	return nil
 }
 
-func (s *LaravelProjectService) createVILTProject(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
+func (s *LaravelProjectService) createVILTProject(ctx *gin.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
 
 	cmd := exec.CommandContext(ctx,
 		"composer", "create-project", "laravel/vue-starter-kit",
@@ -108,7 +131,7 @@ func (s *LaravelProjectService) createVILTProject(ctx context.Context, req reque
 	return nil
 }
 
-func (s *LaravelProjectService) createRILTProject(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
+func (s *LaravelProjectService) createRILTProject(ctx *gin.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
 
 	cmd := exec.CommandContext(ctx,
 		"composer", "create-project", "laravel/react-starter-kit",
@@ -128,5 +151,70 @@ func (s *LaravelProjectService) executeCommand(cmd *exec.Cmd, projectID uuid.UUI
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (s *LaravelProjectService) CreateRepository(ctx *gin.Context, req request.CreateLaravelProjectRequest) error {
+
+	repoData := map[string]interface{}{
+		"name":    req.ProjectName,
+		"private": false,
+	}
+
+	jsonBody, err := json.Marshal(repoData)
+	if err != nil {
+		return fmt.Errorf("erro ao gerar JSON: %w", err)
+	}
+
+	httpReq, err := http.NewRequest("POST", "https://api.github.com/user/repos", bytes.NewBuffer(jsonBody))
+	if err != nil {
+		return fmt.Errorf("erro ao criar requisição: %w", err)
+	}
+
+	httpReq.Header.Set("Authorization", "token "+req.GithubToken)
+	httpReq.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(httpReq)
+	if err != nil {
+		return fmt.Errorf("erro ao fazer requisição: %w", err)
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("erro ao ler resposta: %w", err)
+	}
+
+	if resp.StatusCode != http.StatusCreated {
+		return fmt.Errorf("falha ao criar repositório: %s", string(body))
+	}
+
+	// fmt.Println("Repositório criado com sucesso:", string(body))
+	return nil
+}
+
+func (s *LaravelProjectService) pushToGithub(ctx *gin.Context, req request.CreateLaravelProjectRequest) error {
+	projectDir := filepath.Join(req.ProjectPath, req.ProjectName)
+	repoURL := fmt.Sprintf("https://%s@github.com/%s/%s.git", req.GithubToken, req.GithubUsername, req.ProjectName)
+
+	commands := [][]string{
+		{"git", "init"},
+		{"git", "add", "."},
+		{"git", "commit", "-m", "Initial commit"},
+		{"git", "branch", "-M", "main"},
+		{"git", "remote", "add", "origin", repoURL},
+		{"git", "push", "-u", "origin", "main"},
+	}
+
+	for _, cmd := range commands {
+		c := exec.CommandContext(ctx, cmd[0], cmd[1:]...)
+		c.Dir = projectDir
+		output, err := c.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("erro ao executar %v: %v\n%s", cmd, err, output)
+		}
+	}
+
 	return nil
 }

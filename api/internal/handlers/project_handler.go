@@ -34,7 +34,7 @@ func (h *LaravelProjectHandler) CreateProject(c *gin.Context) {
 	}
 
 	// Criação do projeto
-	if err := h.service.CreateProject(c.Request.Context(), req); err != nil {
+	if err := h.service.CreateProject(c, req); err != nil {
 		handleProjectServiceError(c, err)
 		return
 	}
@@ -61,6 +61,6 @@ func handleProjectServiceError(c *gin.Context, err error) {
 	case errors.Is(err, services.ErrCommandExecution):
 		utils.APIError(c, http.StatusInternalServerError, "Erro na execução do comando")
 	default:
-		utils.APIError(c, http.StatusInternalServerError, "Erro ao criar projeto")
+		utils.APIError(c, http.StatusInternalServerError, err.Error())
 	}
 }

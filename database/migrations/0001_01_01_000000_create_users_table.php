@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('port')->default('2025');
             $table->string('projects_path')->nullable();
+            $table->longText('github_token')->nullable();
+            $table->string('github_username')->nullable();
+            $table->string('github_avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

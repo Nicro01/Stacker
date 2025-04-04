@@ -51,7 +51,7 @@
             <figure class="rounded-box group relative h-full w-full object-cover">
 
                 <img draggable="false"
-                    src="https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                    src="{{ $user->github_avatar ? $user->github_avatar : 'https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' }}"
                     alt="Profile" class="rounded-box h-full w-full object-cover" />
 
                 <div class="bg-base/60 rounded-box absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center opacity-0 backdrop-blur-md transition-opacity duration-150 group-hover:opacity-100"
@@ -85,16 +85,21 @@
 
             </figure>
 
-
-
         </div>
     </div>
 
     <div class="col-span-3 ms-5 mt-[2vw] flex justify-between">
         <div class="flex flex-col gap-2">
-            <h2 class="text-2xl font-bold">Hi, {{ $user->name }}</h2>
+            <h2 class="text-2xl font-bold">Hi, {{ $user->github_username ? $user->github_username : $user->name }}</h2>
             <p class="text-sm">Manage your profile here.</p>
         </div>
+
+        @if (!$user->github_token)
+            <a draggable="false" href="{{ url('/github/redirect') }}" class="btn btn-primary">
+                Conectar com GitHub
+            </a>
+        @endif
+
 
         <div class="-mt-[3.5vw] flex flex-col items-end gap-2">
 
@@ -191,7 +196,8 @@
             <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 w-full border p-4">
                 <legend class="fieldset-legend">New API Port</legend>
                 <label class="fieldset-label">
-                    <input type="text" wire:model="apiPort" x-on:keyup.enter="$wire.changeApiPort; apiModal.close()"
+                    <input type="text" wire:model="apiPort"
+                        x-on:keyup.enter="$wire.changeApiPort; apiModal.close()"
                         class="input input-bordered w-full" />
                 </label>
             </fieldset>

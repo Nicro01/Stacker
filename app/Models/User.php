@@ -22,7 +22,10 @@ class User extends Authenticatable
         'email',
         'password',
         'port',
-        'projects_path'
+        'projects_path',
+        'github_token',
+        'github_username',
+        'github_avatar',
     ];
 
     /**
