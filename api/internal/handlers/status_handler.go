@@ -15,9 +15,5 @@ func NewStatusHandler(cfg *config.ServerConfig) *StatusHandler {
 
 func (h *StatusHandler) PrintStatus(ctx *gin.Context) {
 	port := h.cfg.GetPort()
-
-	ctx.JSON(200, gin.H{
-		"status": "success",
-		"port":   port,
-	})
+	ctx.JSON(200, gin.H{"status": "running", "port": port})
 }

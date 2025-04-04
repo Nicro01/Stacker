@@ -18,23 +18,22 @@ var (
 	ErrCommandExecution = errors.New("erro na execução do comando")
 )
 
-type ProjectService struct {
+type LaravelProjectService struct {
 }
 
-func NewProjectService() *ProjectService {
-	return &ProjectService{}
+func NewLaravelProjectService() *LaravelProjectService {
+	return &LaravelProjectService{}
 }
 
-func (s *ProjectService) CreateProject(ctx context.Context, req request.CreateProjectRequest) error {
+func (s *LaravelProjectService) CreateProject(ctx context.Context, req request.CreateLaravelProjectRequest) error {
 	// Verifica se o diretório já existe
 	projectDir := filepath.Join(req.ProjectPath, req.ProjectName)
 	if _, err := os.Stat(projectDir); err == nil {
 		return ErrProjectExists
 	}
 
-	projectID := uuid.New()
-
 	// Cria projeto base
+	projectID := uuid.New()
 	if req.Stack != "3" && req.Stack != "4" {
 		if err := s.createBaseProject(ctx, req, projectID); err != nil {
 			return err
@@ -47,12 +46,16 @@ func (s *ProjectService) CreateProject(ctx context.Context, req request.CreatePr
 		return nil
 	case "2": // TALL Stack
 		return s.installTallStack(ctx, req, projectID)
+	case "3":
+		return s.createVILTProject(ctx, req, projectID)
+	case "4":
+		return s.createRILTProject(ctx, req, projectID)
 	default:
 		return ErrInvalidStack
 	}
 }
 
-func (s *ProjectService) createBaseProject(ctx context.Context, req request.CreateProjectRequest, projectID uuid.UUID) error {
+func (s *LaravelProjectService) createBaseProject(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
 
 	cmd := exec.CommandContext(ctx,
 		"composer", "create-project", "laravel/laravel",
@@ -67,7 +70,7 @@ func (s *ProjectService) createBaseProject(ctx context.Context, req request.Crea
 	return nil
 }
 
-func (s *ProjectService) installTallStack(ctx context.Context, req request.CreateProjectRequest, projectID uuid.UUID) error {
+func (s *LaravelProjectService) installTallStack(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
 	projectDir := filepath.Join(req.ProjectPath, req.ProjectName)
 
 	// Instala Livewire e TALL Preset
@@ -90,7 +93,37 @@ func (s *ProjectService) installTallStack(ctx context.Context, req request.Creat
 	return nil
 }
 
-func (s *ProjectService) executeCommand(cmd *exec.Cmd, projectID uuid.UUID) error {
+func (s *LaravelProjectService) createVILTProject(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
+
+	cmd := exec.CommandContext(ctx,
+		"composer", "create-project", "laravel/vue-starter-kit",
+		"--prefer-dist", req.ProjectName,
+	)
+	cmd.Dir = req.ProjectPath
+
+	if err := s.executeCommand(cmd, projectID); err != nil {
+		return fmt.Errorf("%w: %v", ErrCommandExecution, err)
+	}
+
+	return nil
+}
+
+func (s *LaravelProjectService) createRILTProject(ctx context.Context, req request.CreateLaravelProjectRequest, projectID uuid.UUID) error {
+
+	cmd := exec.CommandContext(ctx,
+		"composer", "create-project", "laravel/react-starter-kit",
+		"--prefer-dist", req.ProjectName,
+	)
+	cmd.Dir = req.ProjectPath
+
+	if err := s.executeCommand(cmd, projectID); err != nil {
+		return fmt.Errorf("%w: %v", ErrCommandExecution, err)
+	}
+
+	return nil
+}
+
+func (s *LaravelProjectService) executeCommand(cmd *exec.Cmd, projectID uuid.UUID) error {
 	_, err := cmd.CombinedOutput()
 	if err != nil {
 		return err

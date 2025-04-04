@@ -10,16 +10,16 @@ import (
 	"github.com/guifaraco/stacker-api/pkg/utils"
 )
 
-type ProjectHandler struct {
-	service services.ProjectService
+type LaravelProjectHandler struct {
+	service services.LaravelProjectService
 }
 
-func NewProjectHandler(service services.ProjectService) *ProjectHandler {
-	return &ProjectHandler{service: service}
+func NewLaravelProjectHandler(service services.LaravelProjectService) *LaravelProjectHandler {
+	return &LaravelProjectHandler{service: service}
 }
 
-func (h *ProjectHandler) CreateProject(c *gin.Context) {
-	var req request.CreateProjectRequest
+func (h *LaravelProjectHandler) CreateProject(c *gin.Context) {
+	var req request.CreateLaravelProjectRequest
 
 	// Bind e validação do request
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -45,7 +45,7 @@ func (h *ProjectHandler) CreateProject(c *gin.Context) {
 	})
 }
 
-func validateCreateRequest(req request.CreateProjectRequest) error {
+func validateCreateRequest(req request.CreateLaravelProjectRequest) error {
 	if req.ProjectPath == "" || req.ProjectName == "" {
 		return utils.NewValidationError("ProjectPath e ProjectName são obrigatórios")
 	}

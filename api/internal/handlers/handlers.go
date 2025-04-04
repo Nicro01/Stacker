@@ -9,7 +9,7 @@ type HandlerContainer struct {
 	PortHandler      *PortHandler
 	StatusHandler    *StatusHandler
 	WorkspaceHandler *WorkspaceHandler
-	ProjectHandler   *ProjectHandler
+	ProjectHandler   *LaravelProjectHandler
 }
 
 func NewHandlerContainer(
@@ -19,6 +19,6 @@ func NewHandlerContainer(
 		PortHandler:      NewPortHandler(cfg),
 		StatusHandler:    NewStatusHandler(cfg),
 		WorkspaceHandler: NewWorkspaceHandler(services.NewWorkspaceService()),
-		ProjectHandler:   NewProjectHandler(*services.NewProjectService()),
+		ProjectHandler:   NewLaravelProjectHandler(*services.NewLaravelProjectService()),
 	}
 }
