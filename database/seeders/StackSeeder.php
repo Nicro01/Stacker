@@ -16,31 +16,51 @@ class StackSeeder extends Seeder
         $stacks = [
             [
                 'name' => 'Laravel',
-                'user_id' => 1,
-                'package_id' => 2,
+                'package_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'laravel.png',
             ],
             [
                 'name' => 'TALL',
-                'user_id' => 1,
-                'package_id' => 2,
+                'package_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'tall.png',
+                'inputs' => json_encode([
+                    'auth' => true,
+                ]),
             ],
             [
                 'name' => 'VILT',
-                'user_id' => 1,
-                'package_id' => 2,
+                'package_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'vue.png',
             ],
             [
                 'name' => 'React',
-                'user_id' => 1,
-                'package_id' => 2,
+                'package_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'laravext.png',
+            ],
+
+            // Node Stacks
+            [
+                'name' => 'Express.js',
+                'package_id' => 2,
+                'description' => 'Minimalist web framework for Node.js applications.',
+                'image' => 'express.png',
+            ],
+            [
+                'name' => 'NestJS',
+                'package_id' => 2,
+                'description' => 'A progressive Node.js framework for building efficient and scalable server-side applications.',
+                'image' => 'nestjs.png',
+
+            ],
+            [
+                'name' => 'Next.js',
+                'package_id' => 2,
+                'description' => 'The React framework for production with server-side rendering.',
+                'image' => 'nextjs.png',
             ],
         ];
 

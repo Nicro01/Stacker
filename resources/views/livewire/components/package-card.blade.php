@@ -1,6 +1,6 @@
 <div class="card bg-base-200 w-full shadow-sm" x-data="{ open: @entangle('isOpen'), isLoading: @entangle('isLoading') }">
     <figure class="max-h-[300px]">
-        <img src="{{ asset('images/stacks/' . $package->image) }}" alt="{{ $package->name }}" draggable="false" />
+        <img src="{{ asset('images/packages/' . $package->image) }}" alt="{{ $package->name }}" draggable="false" />
     </figure>
 
     <div class="card-body">
@@ -14,67 +14,67 @@
     <div x-show="open" x-collapse>
         <form x-on:submit.prevent="requestLaravelProject($wire)" class="card-body flex flex-col gap-4 pt-0">
 
-            @if ($package->id !== 1)
-
-                {{-- Select Stack --}}
-                @if ($stacks)
-                    <label class="label"><span class="label-text">Stack</span></label>
-                    <select wire:model.live="selectedStack" class="select select-bordered w-full">
-                        <option value="" disabled>Select Stack</option>
-                        @foreach ($stacks as $stack)
-                            <option value="{{ $stack->id }}">{{ $stack->name }}</option>
-                        @endforeach
-                    </select>
-                @endif
-
-                @if ($selectedStack == 2)
-                    <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 w-full border p-4">
-                        <legend class="fieldset-legend">Auth Template</legend>
-                        <label class="fieldset-label">
-                            <input type="checkbox" wire:model="authTALL" class="toggle toggle-error" />
-                            TALL Stack Authentication Template
-                        </label>
-                    </fieldset>
-                @endif
 
 
-                {{-- Config --}}
-                <label class="label"><span class="label-text">Config</span></label>
-                <div class="flex items-center gap-4">
-                    <select wire:model="selectedConfigId" class="select select-bordered w-full">
-                        <option value="" disabled>Select Config</option>
-                        @foreach ($configs as $config)
-                            <option value="{{ $config->id }}">{{ $config->name }}</option>
-                        @endforeach
-                    </select>
-                    <button type="button" onclick="envModal.showModal()" class="btn btn-success">
-                        <x-heroicon-s-document-plus class="size-6" />
-                    </button>
-                </div>
-
-                <dialog id="envModal" class="modal z-[999] w-screen">
-                    <div class="modal-box">
-                        <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                            onclick="envModal.close()">✕</button>
-                        <h3 class="mb-3 text-lg font-bold">Drop your .env file here or click to select</h3>
-                        <input type="file" wire:model.live="envFile" class="file-input w-full" />
-                    </div>
-                </dialog>
-
-                {{-- Path --}}
-                <input type="text" wire:model="projectPath" placeholder="C:/" class="input input-bordered w-full" />
-
-                {{-- Name --}}
-                <input type="text" wire:model="projectName" placeholder="Project Name"
-                    class="input input-bordered w-full" />
-            @else
-                {{-- Campos para pacotes simples --}}
-                <input type="text" wire:model="projectName" placeholder="Package Name"
-                    class="input input-bordered w-full" />
+            {{-- Select Stack --}}
+            @if ($stacks)
+                <label class="label"><span class="label-text">Stack</span></label>
+                <select wire:model.live="selectedStack" class="select select-bordered w-full">
+                    <option value="" disabled>Select Stack</option>
+                    @foreach ($stacks as $stack)
+                        <option value="{{ $stack->id }}">
+                            <span>{{ $stack->name }}</span>
+                        </option>
+                    @endforeach
+                </select>
             @endif
 
+            @php
+                $selected = collect($stacks)->firstWhere('id', $selectedStack);
+            @endphp
+
+            @if ($selected && !empty($selected->inputs))
+                @foreach (json_decode($selected->inputs) as $key => $value)
+                    @if ($key === 'auth')
+                        <livewire:panel.inputs.auth :auth="$auth" />
+                    @endif
+                @endforeach
+            @endif
+
+
+            {{-- Config --}}
+            <label class="label"><span class="label-text">Config</span></label>
+            <div class="flex items-center gap-4">
+                <select wire:model="selectedConfigId" class="select select-bordered w-full">
+                    <option value="" disabled>Select Config</option>
+                    @foreach ($configs as $config)
+                        <option value="{{ $config->id }}">{{ $config->name }}</option>
+                    @endforeach
+                </select>
+                <button type="button" onclick="envModal.showModal()" class="btn btn-success">
+                    <x-heroicon-s-document-plus class="size-6" />
+                </button>
+            </div>
+
+            <dialog id="envModal" class="modal z-[999] w-screen">
+                <div class="modal-box">
+                    <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                        onclick="envModal.close()">✕</button>
+                    <h3 class="mb-3 text-lg font-bold">Drop your .env file here or click to select</h3>
+                    <input type="file" wire:model.live="envFile" class="file-input w-full" />
+                </div>
+            </dialog>
+
+            {{-- Path --}}
+            <input type="text" wire:model="projectPath" placeholder="C:/" class="input input-bordered w-full" />
+
+            {{-- Name --}}
+            <input type="text" wire:model="projectName" placeholder="Project Name"
+                class="input input-bordered w-full" />
+
+
             {{-- Submit --}}
-            <button type="submit" class="btn btn-success w-full">
+            <button type="submit" class="btn btn-success run w-full">
 
                 <x-heroicon-s-play x-show="!isLoading" class="size-6" />
 
@@ -93,19 +93,30 @@
     <script>
         Livewire.on('close-modal', () => envModal?.close?.());
 
+        const allRunButtons = document.querySelectorAll('.run');
+
         async function requestLaravelProject(component) {
             component.set('isLoading', true);
 
             const info = {
-                id: component.get('package.id'),
                 projectPath: component.get('projectPath'),
                 projectName: component.get('projectName'),
-                selectedStack: component.get('selectedStack'),
+                stack: component.get('selectedStack'),
                 auth: component.get('authTALL'),
             };
 
+            console.log('Requesting Laravel project with info:', info);
+
+            allRunButtons.forEach(button => {
+                button.setAttribute('disabled', true);
+            });
+
             try {
-                await axios.post('http://127.0.0.1:2025/api/create-project', info);
+                await axios.post('http://127.0.0.1:2025/api/create-project', JSON.stringify(info));
+                console.log('Project creation request sent successfully.');
+
+                // Wait for 2 seconds
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
                 const response = await axios.get('http://127.0.0.1:2025/api/project-ids');
                 const projectId = response.data.projectIDs?.[0] || null;
@@ -114,9 +125,14 @@
                 component.dispatch('start-log-polling', {
                     projectId
                 });
+
             } catch (error) {
                 console.error('Error creating project:', error);
             }
+
+            allRunButtons.forEach(button => {
+                button.removeAttribute('disabled');
+            });
 
             component.set('isLoading', false);
         }

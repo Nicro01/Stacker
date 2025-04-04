@@ -15,8 +15,8 @@ class PackageCard extends Component
     use WithFileUploads;
 
     public Package $package;
-    public $stacks = [];
-    public $configs = [];
+    public $stacks;
+    public $configs;
 
     public $selectedStack;
     public $selectedConfigId;
@@ -25,7 +25,7 @@ class PackageCard extends Component
     public $projectPath;
     public $projectName;
     public $projectId;
-    public $authTALL = false;
+    public $auth = false;
 
     public $envFile;
     public $envJson;
@@ -44,6 +44,12 @@ class PackageCard extends Component
         $this->projectPath = 'C:\laragon\www';
         $this->projectName = 'test-project';
         $this->selectedStack = $this->stacks->first()?->id;
+    }
+
+    #[On('update-auth')]
+    public function updatedAuth(bool $auth)
+    {
+        $this->auth = $auth;
     }
 
     public function updatedSelectedConfigId()
@@ -80,29 +86,6 @@ class PackageCard extends Component
         $this->configs = Auth::user()->configs;
         $this->dispatch('close-modal');
     }
-
-    // public function requestLaravelProject()
-    // {
-    //     $this->isLoading = true;
-
-    //     $info = [
-    //         'id' => $this->package->id,
-    //         'projectPath' => $this->projectPath,
-    //         'projectName' => $this->projectName,
-    //         'selectedStack' => $this->selectedStack,
-    //         'auth' => $this->authTALL,
-    //     ];
-
-    //     try {
-    //         Http::post('http://127.0.0.1:2025/api/create-project', $info);
-    //         $this->projectId = Http::get('http://127.0.0.1:2025/api/project-ids')->json()['projectIDs'][0] ?? null;
-    //         $this->dispatch('start-log-polling', projectId: $this->projectId);
-    //     } catch (\Throwable $e) {
-    //         logger()->error('Erro ao criar projeto', ['error' => $e->getMessage()]);
-    //     }
-
-    //     $this->isLoading = false;
-    // }
 
     public function render()
     {

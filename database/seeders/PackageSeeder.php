@@ -16,23 +16,20 @@ class PackageSeeder extends Seeder
     {
         $package = [
             [
-                'name' => 'New Package',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
-                'image' => 'new_package.png',
-            ],
-            [
                 'name' => 'Laravel',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'laravel.png',
             ],
+            [
+                'name' => 'Node',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
+                'image' => 'nodejs.png',
+            ],
         ];
 
-        $users = User::all();
 
-        foreach ($users as $user) {
-            foreach ($package as $p) {
-                $user->packages()->create($p);
-            }
+        foreach ($package as $pack) {
+            Package::create($pack);
         }
     }
 }

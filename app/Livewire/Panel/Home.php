@@ -13,7 +13,7 @@ class Home extends Component
 
     public function mount()
     {
-        $this->packages = Auth::user()->packages;
+        $this->packages = Package::all();
     }
 
     public function render()

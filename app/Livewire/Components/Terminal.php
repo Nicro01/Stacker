@@ -15,7 +15,6 @@ class Terminal extends Component
         $this->projectId = $projectId;
     }
 
-
     public function pollLogs($projectId)
     {
         $response = Http::timeout(0)->get("http://127.0.0.1:2025/api/logs?id={$projectId}");

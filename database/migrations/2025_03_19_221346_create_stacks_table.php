@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('stacks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('user_id')->constrained();
             $table->foreignId('package_id')->constrained();
             $table->string('description')->nullable();
             $table->string('image')->nullable();
