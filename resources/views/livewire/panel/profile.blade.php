@@ -115,8 +115,17 @@
                 </div>
             @endif
 
-            <div x-data="{ interval: null }" x-init="interval = setInterval(async () => {
-                const status = await getApiStatus();
+            <div x-data="{ interval: null }" x-init="const status = await getApiStatus($wire);
+            if (status) {
+                console.log('Status: Online');
+                $wire.updateStatus(true);
+            } else {
+                console.log('Status: Offline');
+                $wire.updateStatus(false);
+            }
+            
+            interval = setInterval(async () => {
+                const status = await getApiStatus($wire);
                 if (status) {
                     console.log('Status: Online');
                     $wire.updateStatus(true);
@@ -195,9 +204,11 @@
     </dialog>
 
     <script>
-        async function getApiStatus() {
+        async function getApiStatus(component) {
+            var port = component.get('port');
+
             try {
-                const response = await axios.get('http://127.0.0.1:2025/api/status');
+                const response = await axios.get('http://127.0.0.1:' + port + '/api/status');
                 return response.data.status;
             } catch (error) {
                 console.log(error);

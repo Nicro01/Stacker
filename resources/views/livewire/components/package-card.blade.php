@@ -15,6 +15,17 @@
         <form x-on:submit.prevent="requestLaravelProject($wire)" class="card-body flex flex-col gap-4 pt-0">
 
 
+            @if ($selectedStack == '3' || $selectedStack == '4')
+                <div role="alert" class="alert alert-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>Available only for Laravel ^12.0!</span>
+                </div>
+            @endif
+
 
             {{-- Select Stack --}}
             @if ($stacks)
@@ -46,7 +57,7 @@
             <label class="label"><span class="label-text">Config</span></label>
             <div class="flex items-center gap-4">
                 <select wire:model="selectedConfigId" class="select select-bordered w-full">
-                    <option value="" disabled>Select Config</option>
+                    <option value="" selected>Select Config</option>
                     @foreach ($configs as $config)
                         <option value="{{ $config->id }}">{{ $config->name }}</option>
                     @endforeach
@@ -85,7 +96,7 @@
     </div>
 
     <div class="card-actions mt-4">
-        <button class="btn w-full rounded-t-none" x-on:click="open = !open">
+        <button class="btn w-full rounded-b-lg rounded-t-none border-x-0 border-b-0" x-on:click="open = !open">
             <span x-text="open ? 'Hide' : 'Show'"></span>
         </button>
     </div>
@@ -93,10 +104,10 @@
     <script>
         Livewire.on('close-modal', () => envModal?.close?.());
 
-        const allRunButtons = document.querySelectorAll('.run');
-
         async function requestLaravelProject(component) {
             component.set('isLoading', true);
+
+            var port = component.get('port');
 
             const info = {
                 projectPath: component.get('projectPath'),
@@ -107,33 +118,30 @@
 
             console.log('Requesting Laravel project with info:', info);
 
-            allRunButtons.forEach(button => {
-                button.setAttribute('disabled', true);
-            });
+            const allRunButtons = document.querySelectorAll('.run');
+
+            // Disable all run buttons
+            allRunButtons.forEach(button => button.setAttribute('disabled', true));
 
             try {
-                await axios.post('http://127.0.0.1:2025/api/create-project', JSON.stringify(info));
+                await axios.post('http://127.0.0.1:' + port + '/api/create-project', info, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
                 console.log('Project creation request sent successfully.');
 
+                // Optional delay before next request
                 await new Promise(resolve => setTimeout(resolve, 2000));
-
-                const response = await axios.get('http://127.0.0.1:2025/api/project-ids');
-                const projectId = response.data.projectIDs?.[0] || null;
-
-                component.set('projectId', projectId);
-                component.dispatch('start-log-polling', {
-                    projectId
-                });
 
             } catch (error) {
                 console.error('Error creating project:', error);
+            } finally {
+                // Always re-enable buttons and update UI
+                allRunButtons.forEach(button => button.removeAttribute('disabled'));
+                component.set('isLoading', false);
             }
-
-            allRunButtons.forEach(button => {
-                button.removeAttribute('disabled');
-            });
-
-            component.set('isLoading', false);
         }
     </script>
+
 </div>

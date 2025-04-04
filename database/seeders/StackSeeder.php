@@ -30,7 +30,7 @@ class StackSeeder extends Seeder
                 ]),
             ],
             [
-                'name' => 'VILT',
+                'name' => 'Vue',
                 'package_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'vue.png',
@@ -41,26 +41,45 @@ class StackSeeder extends Seeder
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
                 'image' => 'laravext.png',
             ],
-
             // Node Stacks
             [
-                'name' => 'Express.js',
+                'name' => 'React',
+                'package_id' => 2,
+                'description' => 'A JavaScript library for building user interfaces.',
+                'image' => 'react.png',
+                'inputs' => json_encode([
+                    'auth' => true,
+                ]),
+            ],
+            [
+                'name' => 'Next',
+                'package_id' => 2,
+                'description' => 'The React framework for production with server-side rendering.',
+                'image' => 'nextjs.png',
+            ],
+            [
+                'name' => 'Vue',
+                'package_id' => 2,
+                'description' => 'The Progressive JavaScript Framework for building user interfaces.',
+                'image' => 'vue.png',
+            ],
+            [
+                'name' => 'Nuxt',
+                'package_id' => 2,
+                'description' => 'The Progressive JavaScript Framework for building user interfaces.',
+                'image' => 'vue.png',
+            ],
+            [
+                'name' => 'Express',
                 'package_id' => 2,
                 'description' => 'Minimalist web framework for Node.js applications.',
                 'image' => 'express.png',
             ],
             [
-                'name' => 'NestJS',
+                'name' => 'Vite',
                 'package_id' => 2,
-                'description' => 'A progressive Node.js framework for building efficient and scalable server-side applications.',
-                'image' => 'nestjs.png',
-
-            ],
-            [
-                'name' => 'Next.js',
-                'package_id' => 2,
-                'description' => 'The React framework for production with server-side rendering.',
-                'image' => 'nextjs.png',
+                'description' => 'The Progressive JavaScript Framework for building user interfaces.',
+                'image' => 'vite.png',
             ],
         ];
 

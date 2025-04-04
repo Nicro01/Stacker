@@ -26,6 +26,7 @@ class PackageCard extends Component
     public $projectName;
     public $projectId;
     public $auth = false;
+    public $port;
 
     public $envFile;
     public $envJson;
@@ -38,12 +39,14 @@ class PackageCard extends Component
         $this->package = $package;
         $this->stacks = $package->stacks;
         $this->configs = Auth::user()->configs;
-        $this->selectedConfigId = $this->configs->first()?->id;
+        $this->selectedConfigId;
 
         // Debug padrão
-        $this->projectPath = 'C:\laragon\www';
-        $this->projectName = 'test-project';
+        $this->projectPath = Auth::user()?->projects_path;
+        $this->projectName;
         $this->selectedStack = $this->stacks->first()?->id;
+
+        $this->port = Auth::user()?->port;
     }
 
     #[On('update-auth')]

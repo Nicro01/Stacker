@@ -107,7 +107,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section id="cta" class="rounded-box shadow-base bg-base-200 mb-20 py-20 shadow-lg max-lg:mx-6">
+        <section id="cta" class="rounded-box shadow-base bg-base-200 mb-20 py-20 shadow-lg">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="aldrich mb-8 text-4xl font-bold">Start Stacking Today</h2>
                 <p class="mb-12 text-xl">Join thousands of developers saving hours every day</p>
@@ -124,6 +124,49 @@
                 </div>
             </div>
         </section>
+
+        {{-- <section class="my-20 py-20 max-lg:px-6">
+            <div class="flex flex-col items-center space-y-10 text-center">
+                <h2 class="aldrich text-4xl font-bold">Why Developers Choose Us</h2>
+                <p class="max-w-2xl text-lg">
+                    From hobbyists to enterprise teams, our developer-first approach helps launch and scale products
+                    faster.
+                </p>
+
+                <div class="grid w-full max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+                    <div class="bg-base-200 rounded-xl p-6 shadow-md">
+                        <div class="mb-4 text-4xl">🚀</div>
+                        <h3 class="aldrich text-xl font-semibold">Blazing Fast Setup</h3>
+                        <p>Launch full-stack projects in seconds with pre-configured environments.</p>
+                    </div>
+
+                    <div class="bg-base-200 rounded-xl p-6 shadow-md">
+                        <div class="mb-4 text-4xl">🔧</div>
+                        <h3 class="aldrich text-xl font-semibold">Customizable Stacks</h3>
+                        <p>Start from templates or build your own with full control over the stack.</p>
+                    </div>
+
+                    <div class="bg-base-200 rounded-xl p-6 shadow-md">
+                        <div class="mb-4 text-4xl">🌐</div>
+                        <h3 class="aldrich text-xl font-semibold">Cross-Platform</h3>
+                        <p>Deploy on Linux, Windows, or MacOS without modifying a single line of code.</p>
+                    </div>
+                </div>
+            </div>
+        </section> --}}
+
+        {{-- <section class="my-20 py-20 max-lg:px-6">
+            <div class="flex flex-col items-center space-y-10 text-center">
+                <h2 class="aldrich text-4xl font-bold">Tool Highlights</h2>
+                <p class="max-w-2xl text-lg">
+                    A closer look at some of the built-in tools and features that streamline your workflow and boost
+                    productivity.
+                </p>
+
+
+            </div>
+        </section> --}}
+
 
         <livewire:sections.footer />
 
