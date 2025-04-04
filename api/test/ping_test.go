@@ -24,7 +24,8 @@ func TestPingRoute(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	port := config.GetServerConfig().GetPort()
-	expectedJSON := fmt.Sprintf(`{"port":%d, "status":"running"}`, port) // Formata com o valor numérico
+	msg := fmt.Sprintf(`{"port":%d, "status":"running"}`, port)
+
 	assert.Equal(t, 200, w.Code, "API should return 200")
-	assert.JSONEqf(t, expectedJSON, w.Body.String(), "API should return 'pong'")
+	assert.JSONEqf(t, msg, w.Body.String(), "API should return the port")
 }
