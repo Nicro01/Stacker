@@ -102,7 +102,7 @@
                 projectPath: component.get('projectPath'),
                 projectName: component.get('projectName'),
                 stack: component.get('selectedStack'),
-                auth: component.get('authTALL'),
+                auth: component.get('auth'),
             };
 
             console.log('Requesting Laravel project with info:', info);
@@ -115,7 +115,6 @@
                 await axios.post('http://127.0.0.1:2025/api/create-project', JSON.stringify(info));
                 console.log('Project creation request sent successfully.');
 
-                // Wait for 2 seconds
                 await new Promise(resolve => setTimeout(resolve, 2000));
 
                 const response = await axios.get('http://127.0.0.1:2025/api/project-ids');

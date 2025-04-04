@@ -32,10 +32,13 @@ func (s *ProjectService) CreateProject(ctx context.Context, req request.CreatePr
 		return ErrProjectExists
 	}
 
-	// Cria projeto base
 	projectID := uuid.New()
-	if err := s.createBaseProject(ctx, req, projectID); err != nil {
-		return err
+
+	// Cria projeto base
+	if req.Stack != "3" && req.Stack != "4" {
+		if err := s.createBaseProject(ctx, req, projectID); err != nil {
+			return err
+		}
 	}
 
 	// Instala stack específica
