@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./glide";
 
 import axios from "axios";
 

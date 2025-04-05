@@ -76,12 +76,17 @@
                 </button>
             </div>
 
+            {{-- Create Config Modal --}}
             <dialog id="envModal" class="modal z-[999] w-screen">
                 <div class="modal-box">
                     <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                         onclick="envModal.close()">✕</button>
                     <h3 class="mb-3 text-lg font-bold">Drop your .env file here or click to select</h3>
-                    <input type="file" wire:model.live="envFile" class="file-input w-full" />
+                    <input type="file" wire:model.live="envFile" wire:loading.remove
+                        wire:target="createConfigFromEnv()" class="file-input w-full" />
+
+                    <span wire:loading wire:target="createConfigFromEnv()"
+                        class="loading loading-dots loading-lg"></span>
                 </div>
             </dialog>
 
@@ -128,11 +133,10 @@
                 gitHubUsername: component.get('gitHubUsername'),
             };
 
-            console.log('Requesting Laravel project with info:', info);
+            // console.log('Requesting Laravel project with info:', info);
 
             const allRunButtons = document.querySelectorAll('.run');
 
-            // Disable all run buttons
             allRunButtons.forEach(button => button.setAttribute('disabled', true));
 
             try {
@@ -141,15 +145,13 @@
                         'Content-Type': 'application/json'
                     }
                 });
-                console.log('Project creation request sent successfully.');
+                // console.log('Project creation request sent successfully.');
 
-                // Optional delay before next request
                 await new Promise(resolve => setTimeout(resolve, 2000));
 
             } catch (error) {
                 console.error('Error creating project:', error);
             } finally {
-                // Always re-enable buttons and update UI
                 allRunButtons.forEach(button => button.removeAttribute('disabled'));
                 component.set('isLoading', false);
             }

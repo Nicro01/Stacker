@@ -45,7 +45,7 @@ class PackageCard extends Component
         $this->configs = Auth::user()->configs;
         $this->selectedConfigId;
 
-        $this->gitHubToken = decrypt(Auth::user()?->github_token);
+        $this->gitHubToken = Auth::user()?->github_token ? decrypt(Auth::user()?->github_token) : null;
         $this->gitHubUsername = Auth::user()?->github_username;
 
         // Debug padrão

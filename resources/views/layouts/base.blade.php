@@ -36,6 +36,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.2.0/css/glide.core.css"
+        integrity="sha512-ShLuspGzRsTiMlQ2Rg0e+atjy/gVQr3oYKnKmQkHQ6sxcnDAEOtOaPz2rRmeygV2CtnwUawDyHkGgH4zUbP3Hw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body x-data="{ theme: '', themeDrop: false }" x-init="theme = Array.from(document.getElementsByName('theme-buttons')).find(el => el.checked)?.value ?? 'lofi'" class="poppins-regular select-none">

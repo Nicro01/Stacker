@@ -3,7 +3,7 @@
 <div class="flex flex-col">
     <div>
         <a href="{{ route('home') }}">
-            <span class="aldrich text-5xl font-bold">Stacker</span>
+            <img draggable="false" src="{{ asset('stacker-logo.png') }}" alt="Logo" class="w-48" />
         </a>
 
         <h2 class="mt-6 text-3xl font-semibold leading-9">

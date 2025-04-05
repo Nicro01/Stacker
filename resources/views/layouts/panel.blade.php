@@ -11,7 +11,7 @@
                         class="btn tooltip tooltip-right @if (Route::currentRouteName() == 'panel.home') bg-base-content text-base-100 @endif rounded-box inline-flex size-12 justify-center border-none"
                         href="{{ route('panel.home') }}">
 
-                        <x-heroicon-s-cube-transparent class="h-6 min-w-8" />
+                        <x-heroicon-c-cube class="h-6 min-w-8" />
                     </a>
 
                     <a draggable="false" data-tip="Project Configurations"
