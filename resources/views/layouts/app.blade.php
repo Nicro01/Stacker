@@ -9,12 +9,12 @@
 
     @if (!$cookiesAccepted)
         <div x-data="{ open: {{ $cookiesAccepted ? 'false' : 'true' }} }" x-init="() => setTimeout(() => open = true, 500)"
-            class="container fixed bottom-10 left-1/2 z-[60] mx-auto flex -translate-x-1/2 items-center justify-center">
+            class="container fixed bottom-10 left-1/2 z-[60] mx-auto flex -translate-x-1/2 items-center justify-center max-sm:max-w-[80%]">
 
             <div x-show="open" x-transition:enter-start="opacity-0 scale-90"
                 x-transition:enter="transition duration-200 transform ease"
                 x-transition:leave="transition duration-200 transform ease" x-transition:leave-end="opacity-0 scale-90"
-                class="bg-base-100 rounded-box flex w-full items-center justify-between gap-8 p-4 shadow-lg">
+                class="bg-base-100 rounded-box flex w-full items-center justify-between gap-8 p-4 shadow-lg max-sm:flex-col">
                 <div>
                     <p class="text-sm">
                         This site uses cookies to improve your experience. By continuing to browse the site, you agree to
