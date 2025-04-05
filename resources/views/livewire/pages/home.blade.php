@@ -76,7 +76,7 @@
 
 
         <section class="my-20 py-20 max-lg:px-6">
-            <div class="grid gap-12 md:grid-cols-2">
+            <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
                 <div class="flex flex-col space-y-6">
                     <h2 class="aldrich text-4xl font-bold">Your Project, Your Rules</h2>
                     <p class="text-lg">
