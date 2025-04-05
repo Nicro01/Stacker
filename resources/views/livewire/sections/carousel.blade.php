@@ -5,20 +5,21 @@
         Stacker is a developer-first tool that streamlines the process of creating and deploying full-stack projects.
     </p>
 
-    <div class="carousel-section glide--ltr glide--carousel glide--swipeable relative mb-20 w-full">
+    <div
+        class="carousel-section glide--ltr glide--carousel glide--swipeable relative mb-20 w-full max-lg:w-full xl:mx-auto xl:max-w-[52vw]">
 
         <div class="glide__track cursor-grab" data-glide-el="track">
             <ul class="glide__slides h-full select-none">
 
-                <li>
-                    <div class="bg-base-200 rounded-box flex h-full flex-col gap-6 p-6 sm:shadow-lg">
+                <li class="sm:p-6">
+                    <div class="bg-base-200/40 rounded-box flex h-full flex-col gap-6 p-6 sm:shadow-lg">
                         <span class="text-xl font-bold">
                             Step 1
                         </span>
 
                         <figure class="rounded-field h-[40vh] w-full">
-                            <img draggable="false" src="https://placehold.co/400" alt="TALL Stack" draggable="false"
-                                class="h-full w-full object-cover" />
+                            <img draggable="false" src="{{ asset('images/mockups/step1.png') }}" alt="TALL Stack"
+                                class="h-full w-full object-contain" />
                         </figure>
 
                         <span class="text-lg font-semibold">
@@ -28,15 +29,15 @@
                     </div>
                 </li>
 
-                <li>
-                    <div class="bg-base-200 rounded-box flex h-full flex-col gap-6 p-6 sm:shadow-lg">
+                <li class="sm:p-6">
+                    <div class="bg-base-200/40 rounded-box flex h-full flex-col gap-6 p-6 sm:shadow-lg">
                         <span class="text-xl font-bold">
                             Step 2
                         </span>
 
                         <figure class="rounded-field h-[40vh] w-full">
-                            <img draggable="false" src="https://placehold.co/400" alt="TALL Stack" draggable="false"
-                                class="h-full w-full object-cover" />
+                            <img draggable="false" src="{{ asset('images/mockups/step2.png') }}" alt="TALL Stack"
+                                draggable="false" class="h-full w-full object-cover" />
                         </figure>
 
                         <span class="text-lg font-semibold">
@@ -46,15 +47,15 @@
                     </div>
                 </li>
 
-                <li>
-                    <div class="bg-base-200 rounded-box flex max-w-full flex-col gap-6 p-6 sm:shadow-lg">
+                <li class="sm:p-6">
+                    <div class="bg-base-200/40 rounded-box flex max-w-full flex-col gap-6 p-6 sm:shadow-lg">
                         <span class="text-xl font-bold">
                             Step 3
                         </span>
 
                         <figure class="rounded-field h-[40vh] w-full">
-                            <img draggable="false" src="https://placehold.co/400" alt="TALL Stack" draggable="false"
-                                class="h-full w-full object-cover" />
+                            <img draggable="false" src="{{ asset('images/mockups/step3.png') }}" alt="TALL Stack"
+                                draggable="false" class="h-full w-full object-cover" />
                         </figure>
 
                         <span class="text-lg font-semibold">
