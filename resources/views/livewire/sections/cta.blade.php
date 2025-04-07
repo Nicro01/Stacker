@@ -1,5 +1,5 @@
 <!-- CTA Section -->
-<section id="cta" class="sm:rounded-box shadow-base bg-base-200 mb-20 py-20 shadow-lg">
+<section id="cta" class="sm:rounded-box shadow-base bg-base-200 mb-32 py-20 shadow-lg">
     <div class="container mx-auto px-6 text-center">
         <h2 class="aldrich mb-8 text-4xl font-bold">Start Stacking Today</h2>
         <p class="mb-12 text-xl">Join thousands of developers saving hours every day</p>

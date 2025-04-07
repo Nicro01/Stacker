@@ -1,4 +1,4 @@
-<section class="my-20 max-lg:px-6">
+<section class="my-32 max-lg:px-6">
 
     <h2 class="aldrich mb-2 text-center text-4xl font-bold">How it Works</h2>
     <p class="mb-8 text-center text-lg">

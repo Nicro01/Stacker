@@ -75,7 +75,7 @@
         </section>
 
 
-        <section class="my-20 py-20 max-lg:px-6">
+        <section class="max-lg:px-6 max-sm:mb-20 sm:my-20 sm:py-20">
             <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
                 <div class="flex flex-col space-y-6">
                     <h2 class="aldrich text-4xl font-bold">Your Project, Your Rules</h2>
@@ -108,7 +108,7 @@
 
 
 
-        <livewire:sections.carousel />
+        {{-- <livewire:sections.carousel /> --}}
 
         <livewire:sections.cta />
 

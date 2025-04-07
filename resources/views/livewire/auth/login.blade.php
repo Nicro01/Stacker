@@ -1,5 +1,5 @@
 @section('title', 'Sign in to your account')
-<div class="flex flex-col">
+<div class="flex flex-col max-sm:h-full max-sm:items-center max-sm:justify-center">
     <div class="">
         <a href="{{ route('home') }}">
             <img draggable="false" src="{{ asset('stacker-logo.png') }}" alt="Logo" class="w-48" />
@@ -9,7 +9,7 @@
             Sign in to your account
         </h2>
         @if (Route::has('register'))
-            <p class="max-w mt-2 text-sm leading-5">
+            <p class="mt-2 text-sm leading-5">
                 Or
                 <a href="{{ route('register') }}" class="link font-medium transition duration-150 ease-in-out">
                     create a new account
@@ -18,8 +18,8 @@
         @endif
     </div>
 
-    <div class="mt-8 w-[50%]">
-        <div class="card bg-base-200 w-96 px-4 py-8 shadow-sm">
+    <div class="mt-8 sm:w-[50%]">
+        <div class="card bg-base-200 px-4 py-8 shadow-sm sm:w-96">
             <form wire:submit.prevent="authenticate">
                 <div>
                     <label for="email" class="mb-3 block text-sm font-medium leading-5">
