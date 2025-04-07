@@ -31,7 +31,7 @@
                     </a>
                     <a draggable="false" data-tip="Logout"
                         class="btn tooltip tooltip-right rounded-box inline-flex size-12 justify-center border-none"
-                        href="#">
+                        href="{{ route('logout') }}">
 
                         <x-heroicon-s-arrow-left-start-on-rectangle class="h-6 min-w-8" />
 
