@@ -10,9 +10,13 @@
             <a href="#" class="btn btn-xl">
                 <x-fab-windows class="size-8" />
             </a>
-            <a href="#" class="btn btn-xl">
-                <x-fab-app-store-ios class="size-8" />
-            </a>
+            <div class="flex flex-col items-center gap-2 text-gray-500">
+                <button disabled href="#" class="btn btn-xl">
+                    <x-fab-app-store-ios class="size-8" />
+                </button>
+                <span>Coming Soon</span>
+            </div>
+
         </div>
     </div>
 </section>

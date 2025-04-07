@@ -5,8 +5,7 @@
         Stacker is a developer-first tool that streamlines the process of creating and deploying full-stack projects.
     </p>
 
-    <div
-        class="carousel-section glide--ltr glide--carousel glide--swipeable relative mb-20 w-full max-lg:w-full xl:mx-auto xl:max-w-[52vw]">
+    <div class="carousel-section glide--ltr glide--carousel glide--swipeable relative mb-20 w-full max-lg:w-full">
 
         <div class="glide__track cursor-grab" data-glide-el="track">
             <ul class="glide__slides h-full select-none">
@@ -37,7 +36,7 @@
 
                         <figure class="rounded-field h-[40vh] w-full">
                             <img draggable="false" src="{{ asset('images/mockups/step2.png') }}" alt="TALL Stack"
-                                draggable="false" class="h-full w-full object-cover" />
+                                draggable="false" class="h-full w-full object-contain" />
                         </figure>
 
                         <span class="text-lg font-semibold">
@@ -55,7 +54,7 @@
 
                         <figure class="rounded-field h-[40vh] w-full">
                             <img draggable="false" src="{{ asset('images/mockups/step3.png') }}" alt="TALL Stack"
-                                draggable="false" class="h-full w-full object-cover" />
+                                draggable="false" class="h-full w-full object-contain" />
                         </figure>
 
                         <span class="text-lg font-semibold">
