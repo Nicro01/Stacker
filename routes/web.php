@@ -8,6 +8,7 @@ use App\Livewire\Auth\Passwords\Email;
 use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
+use App\Livewire\Pages\Fallback;
 use App\Livewire\Pages\Home;
 use App\Livewire\Panel\Home as PanelHome;
 use App\Livewire\Panel\Configs as PanelConfigs;
@@ -26,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Home::class)->name('home');
+
+// Route::fallback(Fallback::class)->name('fallback');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
