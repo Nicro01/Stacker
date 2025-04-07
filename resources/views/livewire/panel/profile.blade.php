@@ -1,8 +1,8 @@
-<div class="grid min-h-screen grid-cols-3 place-content-start items-start gap-12">
+<div class="grid min-h-screen grid-cols-1 place-content-start items-start gap-12 sm:grid-cols-3">
 
     {{-- <livewire:components.theme-selection /> --}}
 
-    <div class="rounded-box bg-base-200 shadow-base relative col-span-3 flex h-[20vh] shadow-lg">
+    <div class="rounded-box bg-base-200 shadow-base relative col-span-1 flex h-[20vh] shadow-lg sm:col-span-3">
 
         <figure class="rounded-box group relative h-full w-full object-cover">
 
@@ -21,7 +21,7 @@
         </figure>
 
         {{-- Integrations Buttons --}}
-        <div class="absolute -bottom-5 left-[calc(3.5rem+8vw)] translate-y-full">
+        <div class="absolute -bottom-5 left-[calc(3.5rem+8vw)] translate-y-full max-sm:hidden">
             @if (!$user->github_token)
                 <a draggable="false" href="{{ url('/github/redirect') }}" class="btn btn-primary">
                     <img src="{{ asset('images/logos/github.png') }}" alt="Github Logo" class="size-6 invert" />
@@ -32,8 +32,9 @@
 
 
 
+        {{-- User Profile Image --}}
         <div
-            class="rounded-box shadow-base absolute bottom-0 left-5 h-[8vw] w-[8vw] translate-y-1/2 border-2 border-white bg-gray-200 shadow-lg">
+            class="rounded-box shadow-base absolute bottom-0 left-5 h-[8vw] w-[8vw] translate-y-1/2 border-2 border-white bg-gray-200 shadow-lg max-sm:left-1/2 max-sm:min-h-32 max-sm:min-w-32 max-sm:-translate-x-1/2 max-sm:translate-y-1/4">
 
             <figure class="rounded-box group relative h-full w-full object-cover">
 
@@ -53,13 +54,13 @@
         </div>
     </div>
 
-    <div class="col-span-3 ms-5 mt-[2vw] flex justify-between">
-        <div class="flex flex-col gap-2">
+    <div class="col-span-1 mt-[2vw] flex justify-between max-sm:w-full max-sm:flex-col sm:col-span-3 sm:ms-5">
+        <div class="flex flex-col gap-2 max-sm:w-full">
             <h2 class="text-2xl font-bold">Hi, {{ $user->github_username ? $user->github_username : $user->name }}</h2>
             <p class="text-sm">Manage your profile here.</p>
         </div>
 
-        <div class="-mt-[3.5vw] flex flex-col items-end gap-2">
+        <div class="flex flex-col items-start gap-2 max-sm:w-full sm:-mt-[3.5vw] sm:items-end">
 
 
             @if ($status)
@@ -100,20 +101,29 @@
             </div>
 
 
-            <div class="flex flex-col items-end gap-4">
+            <div class="flex flex-col gap-4 max-sm:w-full sm:items-end">
                 <div class="kbd kbd-md cursor-pointer" onclick="folderModal.showModal()">Root Folder :
                     {{ $user->projects_path }}</div>
                 <div class="kbd kbd-md cursor-pointer" onclick="apiModal.showModal()">API Port: {{ $user->port }}
+                </div>
+
+                <div class="w-full sm:hidden">
+                    @if (!$user->github_token)
+                        <a draggable="false" href="{{ url('/github/redirect') }}" class="btn btn-primary w-full">
+                            <img src="{{ asset('images/logos/github.png') }}" alt="Github Logo" class="size-6 invert" />
+                            Connect with Github
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-span-3">
+    <div class="col-span-1 sm:col-span-3">
         <h3 class="mb-2 text-3xl font-bold">Your Projects</h3>
         <p class="text-sm">See your projects created with Stacker</p>
 
-        <div class="my-6 grid w-full grid-cols-5 gap-6">
+        <div class="my-6 grid w-full grid-cols-1 gap-6 sm:grid-cols-5">
             @for ($i = 0; $i < 6; $i++)
                 <div class="skeleton h-48"></div>
             @endfor

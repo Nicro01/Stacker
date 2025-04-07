@@ -5,7 +5,7 @@
         <div class="flex w-full gap-6">
 
             <div
-                class="rounded-box bg-base-200 shadow-base fixed left-6 top-6 z-50 flex h-[calc(100vh-3rem)] w-[5vw] flex-col justify-between px-4 py-4 shadow-lg">
+                class="rounded-box bg-base-200 shadow-base fixed left-6 top-6 z-50 flex h-[calc(100vh-3rem)] w-[5vw] flex-col justify-between px-4 py-4 shadow-lg max-sm:hidden">
                 <nav class="flex flex-col items-center space-x-0 space-y-2">
                     <a draggable="false" data-tip="Packages"
                         class="btn tooltip tooltip-right @if (Route::currentRouteName() == 'panel.home') bg-base-content text-base-100 @endif rounded-box inline-flex size-12 justify-center border-none"
@@ -38,7 +38,7 @@
                     </a>
                 </div>
             </div>
-            <div class="ms-[8vw] flex-1 px-0 pe-[1.5vw]">
+            <div class="flex-1 px-0 pe-[1.5vw] sm:ms-[8vw]">
                 @yield('content')
 
                 @isset($slot)

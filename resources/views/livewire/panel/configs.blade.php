@@ -1,4 +1,4 @@
-<div class="grid min-h-screen grid-cols-3 place-content-start items-start gap-12 py-16">
+<div class="grid min-h-screen place-content-start items-start gap-12 py-6 sm:grid-cols-3 sm:py-16">
     <div class="col-span-3">
         <h2 class="aldrich text-4xl font-bold">Project Configurations</h2>
         <p class="text-lg">Manage your project configurations here.</p>
@@ -22,7 +22,6 @@
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Name</th>
                         <th>Actions</th>
                     </tr>
@@ -38,11 +37,12 @@
                     @else
                         @foreach ($configs as $config)
                             <tr>
-                                <th>{{ $config->id }}</th>
                                 <td>{{ $config->name }}</td>
                                 <td>
                                     <div class="flex items-center gap-2">
-                                        <button onclick="" class="btn btn-sm btn-error">Delete</button>
+                                        <livewire:components.delete-button model="Config" :id="$config->id"
+                                            :key="$config->id" redirect="panel.configs"
+                                            wire:key='config-{{ $config->id }}' />
                                     </div>
                                 </td>
                             </tr>
