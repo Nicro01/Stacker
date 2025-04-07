@@ -1,4 +1,5 @@
-<div class="grid min-h-screen grid-cols-1 place-content-start items-start gap-6 py-6 sm:grid-cols-3 sm:py-16">
+<div
+    class="grid min-h-screen grid-cols-1 place-content-start items-start gap-6 py-6 sm:py-16 lg:grid-cols-2 xl:grid-cols-3">
 
     <div class="col-span-1 sm:col-span-3">
         <h2 class="aldrich text-4xl font-bold">
