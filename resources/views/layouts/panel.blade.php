@@ -7,6 +7,12 @@
             <div
                 class="rounded-box bg-base-200 shadow-base fixed bottom-5 left-1/2 z-50 flex justify-between px-4 py-4 shadow-lg max-sm:hidden max-sm:w-[90%] max-sm:-translate-x-1/2 sm:left-6 sm:top-6 sm:h-[calc(100vh-3rem)] sm:flex-col md:w-[8vw] 2xl:w-[5vw]">
                 <nav class="flex items-center space-x-2 sm:flex-col sm:space-x-0 sm:space-y-2">
+
+                    <figure>
+                        <img src="{{ asset('images/stacker-icon.png') }}" alt="Stacker Icon" class="size-24"
+                            draggable="false" />
+                    </figure>
+
                     <a draggable="false" data-tip="Packages"
                         class="btn tooltip sm:tooltip-right @if (Route::currentRouteName() == 'panel.home') bg-base-content text-base-100 @endif rounded-box inline-flex size-12 justify-center border-none"
                         href="{{ route('panel.home') }}">

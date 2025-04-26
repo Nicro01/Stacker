@@ -4,7 +4,7 @@
 
     <div class="rounded-box bg-base-200 shadow-base relative col-span-1 flex h-[20vh] shadow-lg sm:col-span-3">
 
-        <figure class="rounded-box group relative h-full w-full object-cover">
+        <figure class="rounded-box bg-base-100 group relative h-full w-full object-cover">
 
             @if ($background)
                 <img draggable="false" src="{{ $background->temporaryUrl() }}" alt="Profile Background"
@@ -13,9 +13,8 @@
                 <img draggable="false" src="{{ $user->background }}" alt="Profile Background"
                     class="rounded-box h-full w-full object-cover" />
             @else
-                <img draggable="false"
-                    src="https://images.unsplash.com/photo-1741866987680-5e3d7f052b87?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Profile Background" class="rounded-box h-full w-full object-cover" />
+                <img draggable="false" src="{{ asset('images/default/user.png') }}" alt="Profile Background"
+                    class="rounded-box h-full w-full object-cover" />
             @endif
 
             <div class="bg-base/60 rounded-box absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center opacity-0 backdrop-blur-md transition-opacity duration-150 group-hover:opacity-100"
