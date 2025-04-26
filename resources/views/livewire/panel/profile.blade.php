@@ -58,9 +58,8 @@
                     <img draggable="false" src="{{ $user->profile_image }}" alt="Profile"
                         class="rounded-box h-full w-full object-cover" />
                 @else
-                    <img draggable="false"
-                        src="https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                        alt="Profile" class="rounded-box h-full w-full object-cover" />
+                    <img draggable="false" src="{{ asset('images/default/user.png') }}" alt="Profile"
+                        class="rounded-box h-full w-full object-cover" />
                 @endif
 
                 <div class="bg-base/60 rounded-box absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center opacity-0 backdrop-blur-md transition-opacity duration-150 group-hover:opacity-100"

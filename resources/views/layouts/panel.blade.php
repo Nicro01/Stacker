@@ -9,8 +9,7 @@
                 <nav class="flex items-center space-x-2 sm:flex-col sm:space-x-0 sm:space-y-2">
 
                     <figure>
-                        <img src="{{ asset('images/stacker-icon.png') }}" alt="Stacker Icon" class="size-24"
-                            draggable="false" />
+                        <img src="{{ asset('stacker-icon.png') }}" alt="Stacker Icon" class="size-24" draggable="false" />
                     </figure>
 
                     <a draggable="false" data-tip="Packages"
