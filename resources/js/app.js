@@ -1,5 +1,5 @@
 import "./bootstrap";
-import "./glide";
+// import "./glide";
 
 import axios from "axios";
 
