@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('port')->default('2025');
             $table->string('projects_path')->nullable();
+            $table->string('profile_image')->nullable();
+            $table->string('profile_image_public_id')->nullable();
+            $table->string('background')->nullable();
+            $table->string('background_public_id')->nullable();
             $table->longText('github_token')->nullable();
             $table->string('github_username')->nullable();
             $table->string('github_avatar')->nullable();

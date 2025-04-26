@@ -48,10 +48,8 @@ class PackageCard extends Component
         $this->gitHubToken = Auth::user()?->github_token ? decrypt(Auth::user()?->github_token) : null;
         $this->gitHubUsername = Auth::user()?->github_username;
 
-        // Debug padrão
         $this->projectPath = Auth::user()?->projects_path;
-        $this->projectName;
-        $this->selectedStack = $this->stacks->first()?->id;
+        $this->selectedStack = strval($this->stacks->first()?->id);
 
         $this->port = Auth::user()?->port;
     }

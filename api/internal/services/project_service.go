@@ -44,7 +44,7 @@ func (s *LaravelProjectService) CreateProject(ctx *gin.Context, req request.Crea
 
 	// Cria projeto base
 	projectID := uuid.New()
-	if req.Stack != 3 && req.Stack != 4 {
+	if req.Stack != "3" && req.Stack != "4" {
 		if err := s.createBaseProject(ctx, req, projectID); err != nil {
 			return err
 		}
@@ -53,13 +53,13 @@ func (s *LaravelProjectService) CreateProject(ctx *gin.Context, req request.Crea
 	// Instala stack específica
 	var err error
 	switch req.Stack {
-	case 1:
+	case "1":
 		// Laravel default – nada extra a instalar
-	case 2:
+	case "2":
 		err = s.installTallStack(ctx, req, projectID)
-	case 3:
+	case "3":
 		err = s.createVILTProject(ctx, req, projectID)
-	case 4:
+	case "4":
 		err = s.createRILTProject(ctx, req, projectID)
 	default:
 		return ErrInvalidStack

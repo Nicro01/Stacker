@@ -6,16 +6,26 @@
 
         <figure class="rounded-box group relative h-full w-full object-cover">
 
-            <img draggable="false"
-                src="https://images.unsplash.com/photo-1741866987680-5e3d7f052b87?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Profile Background" class="rounded-box h-full w-full object-cover" />
-
+            @if ($background)
+                <img draggable="false" src="{{ $background->temporaryUrl() }}" alt="Profile Background"
+                    class="rounded-box h-full w-full object-cover" />
+            @elseif($user->background)
+                <img draggable="false" src="{{ $user->background }}" alt="Profile Background"
+                    class="rounded-box h-full w-full object-cover" />
+            @else
+                <img draggable="false"
+                    src="https://images.unsplash.com/photo-1741866987680-5e3d7f052b87?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Profile Background" class="rounded-box h-full w-full object-cover" />
+            @endif
 
             <div class="bg-base/60 rounded-box absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center opacity-0 backdrop-blur-md transition-opacity duration-150 group-hover:opacity-100"
                 x-bind:class="{ 'opacity-100': backgroundImage }">
 
                 <x-heroicon-s-photo class="h-12 w-12" />
 
+
+                <input wire:model.live="background" type="file" accept=".png, .jpg, .jpeg"
+                    class="absolute z-10 h-full w-full cursor-pointer opacity-0" />
             </div>
 
         </figure>
@@ -38,14 +48,29 @@
 
             <figure class="rounded-box group relative h-full w-full object-cover">
 
-                <img draggable="false"
-                    src="{{ $user->github_avatar ? $user->github_avatar : 'https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' }}"
-                    alt="Profile" class="rounded-box h-full w-full object-cover" />
+
+                @if ($profileImage)
+                    <img draggable="false" src="{{ $profileImage->temporaryUrl() }}" alt="Profile Background"
+                        class="rounded-box h-full w-full object-cover" />
+                @elseif($user->github_avatar)
+                    <img draggable="false" src="{{ $user->github_avatar }}" alt="Profile"
+                        class="rounded-box h-full w-full object-cover" />
+                @elseif($user->profile_image)
+                    <img draggable="false" src="{{ $user->profile_image }}" alt="Profile"
+                        class="rounded-box h-full w-full object-cover" />
+                @else
+                    <img draggable="false"
+                        src="https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        alt="Profile" class="rounded-box h-full w-full object-cover" />
+                @endif
 
                 <div class="bg-base/60 rounded-box absolute inset-0 flex h-full w-full cursor-pointer items-center justify-center opacity-0 backdrop-blur-md transition-opacity duration-150 group-hover:opacity-100"
                     x-bind:class="{ 'opacity-100': profileImage }">
 
                     <x-heroicon-s-photo class="h-12 w-12" />
+
+                    <input wire:model.live="profileImage" type="file" accept=".png, .jpg, .jpeg"
+                        class="absolute z-10 h-full w-full cursor-pointer opacity-0" />
 
                 </div>
 
@@ -110,7 +135,8 @@
                 <div class="w-full sm:hidden">
                     @if (!$user->github_token)
                         <a draggable="false" href="{{ url('/github/redirect') }}" class="btn btn-primary w-full">
-                            <img src="{{ asset('images/logos/github.png') }}" alt="Github Logo" class="size-6 invert" />
+                            <img src="{{ asset('images/logos/github.png') }}" alt="Github Logo"
+                                class="size-6 invert" />
                             Connect with Github
                         </a>
                     @endif
@@ -164,13 +190,15 @@
             <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 w-full border p-4">
                 <legend class="fieldset-legend">New API Port</legend>
                 <label class="fieldset-label">
-                    <input type="text" wire:model="apiPort" x-on:keyup.enter="$wire.changeApiPort; apiModal.close()"
+                    <input type="text" wire:model="apiPort"
+                        x-on:keyup.enter="$wire.changeApiPort; apiModal.close()"
                         class="input input-bordered w-full" />
                 </label>
             </fieldset>
             <div class="modal-action">
                 <button class="btn w-[50%]" onclick="apiModal.close()">Close</button>
-                <button class="btn btn-neutral w-[50%]" x-on:click="$wire.changeApiPort; apiModal.close()">Save</button>
+                <button class="btn btn-neutral w-[50%]"
+                    x-on:click="$wire.changeApiPort; apiModal.close()">Save</button>
             </div>
         </div>
     </dialog>
