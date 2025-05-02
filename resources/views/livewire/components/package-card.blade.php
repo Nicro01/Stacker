@@ -40,7 +40,7 @@
                 </select>
             @endif
 
-            @if (auth()->user->github_token)
+            @if (auth()->user()->github_token)
                 <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 w-full border p-4">
                     <legend class="fieldset-legend">Github Repository</legend>
                     <label class="fieldset-label">
